@@ -1,0 +1,57 @@
+<div class="surface-ground min-h-screen flex align-items-center justify-content-center">
+  <div class="surface-card p-6 shadow-2 border-round w-full sm:w-25rem mx-8">
+    <!-- Encabezado -->
+    <div class="text-center mb-5">
+      <img src="https://www.kayak.com.mx/rimg/dimg/dynamic/29/2023/08/9ad7e8322abdb473d30bd9a932f9caeb.webp" 
+           alt="Sakai logo"
+           class="w-full h-100 mb-3 rounded-md object-contain" />
+      <div class="text-900 text-2xl font-bold mb-2">Ingrese a la plataforma Hoteles & Restaurantes</div>
+      <span class="text-600 text-sm">Ingreso para usuarios</span>
+    </div>
+
+    <!-- Formulario -->
+    <form class="flex flex-col gap-4">
+      <!-- Nombre -->
+      <p-iconfield>
+        <p-inputicon>
+          <i class="pi pi-user"></i>
+        </p-inputicon>
+        <input
+          type="text"
+          pInputText
+          id="name"
+          [(ngModel)]="name"
+          name="Usuario"
+          placeholder="Usuario"
+          [pAutoFocus]="true"
+          class="w-full"
+        />
+      </p-iconfield>
+
+      <!-- Email -->
+      <p-iconfield>
+        <p-inputicon>
+          <i class="pi pi-envelope"></i>
+        </p-inputicon>
+        <input
+          type="email"
+          pInputText
+          id="email"
+          [(ngModel)]="email"
+          name="email"
+          placeholder="Email"
+          class="w-full"
+        />
+      </p-iconfield>
+
+      <!-- Botón -->
+      <p-button type="submit" label="Ingresar" class="w-full"></p-button>
+    </form>
+
+    <div class="text-center mt-4 text-sm text-600">
+      Aun no tienes una cuenta? Crea una
+      <a href="#" class="text-primary font-medium no-underline"
+      routerLink='/login/registrarse'>Registrate</a>
+    </div>
+  </div>
+</div>
