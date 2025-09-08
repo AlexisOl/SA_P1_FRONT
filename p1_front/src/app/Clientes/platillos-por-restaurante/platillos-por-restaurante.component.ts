@@ -69,7 +69,7 @@ export class PlatillosPorRestauranteComponent implements OnInit {
   ngOnInit(): void {
     this.idRestaurante = this.route.snapshot.paramMap.get('id')!;
 
-    this.platillosServicio.listarPlatillos(Number(this.idRestaurante)).subscribe(
+    this.platillosServicio.listarPlatillos(this.idRestaurante).subscribe(
       (next: any) => {
         console.log(next);
         this.items = next

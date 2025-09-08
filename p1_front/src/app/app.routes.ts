@@ -4,7 +4,10 @@ import { LoginComponent } from './Auth/login/login.component';
 export const routes: Routes = [
 
     {path: 'login', loadChildren: () => import('./Auth/Auth.routes').then(a => a.AuthRoutes)},
+
     {path: 'hotel_restaurante', loadChildren: () => import('./Clientes/Clientes.routes').then(c => c.ClientesRoutes)},
+    {path: 'admin', loadChildren: () => import('./Admin/Admin.routes').then(a => a.AdminRoutes)},
+    
     { path: '**',redirectTo: 'login', pathMatch:'full'},
 
 ];

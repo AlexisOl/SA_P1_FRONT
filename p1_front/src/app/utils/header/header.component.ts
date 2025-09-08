@@ -52,7 +52,18 @@ export class HeaderComponent implements OnInit {
                  {
                 label: 'Hotel',
                 root: true,
-                direccion: '/hotel_restaurante/hoteles'
+                direccion: '/hotel_restaurante/hoteles',
+                       items: [
+                    [
+                        {
+                            valores: [
+                                { label: 'Reservaciones', icon: 'pi pi-list', subtext: 'Subtext of item' },
+                            ]
+                        }
+                    ],
+          
+             
+                ]
             },
             {
                 label: 'Restaurantes',

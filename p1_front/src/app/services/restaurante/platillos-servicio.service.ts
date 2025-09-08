@@ -16,9 +16,9 @@ export class PlatillosServicioService {
 
 
 
-  public listarPlatillos(id:Number):Observable<Platillo[]> {
+  public listarPlatillos(id:String):Observable<Platillo[]> {
     return  this.http.get<Platillo[]>(
-      this.URL
+      this.URL+"/restaurante/"+id
     )
   }
 
