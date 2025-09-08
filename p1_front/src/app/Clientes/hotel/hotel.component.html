@@ -1,0 +1,58 @@
+<app-header />
+
+
+
+  <!-- Panel LISTADO -->
+    <div class="h-full w-full mb-2">
+        <div
+          style="
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+            padding: 1rem;
+          "
+        >
+          @for (item of this.hotelServicio.listadoHoteles(); track $index) {
+            <p-card
+              [style]="{
+                width: '100%',
+                overflow: 'hidden',
+                borderRadius: '1rem',
+                boxShadow: '0 4px 12px rgba(0,0,0,0.08)'
+              }"
+            >
+     
+              <ng-template #title>
+                <span style="font-weight: 600;">{{ item.nombre }}</span>
+              </ng-template>
+              <ng-template #subtitle>
+                <span style="color: #6b7280;">{{  item.direccion }}</span>
+              </ng-template>
+              <p style="color: #374151; margin: 0.5rem 0;">{{ item.telefono }}</p>
+
+              <ng-template #footer>
+                <div class="flex gap-4 mt-1">
+                  <p-button
+                    label="ver habitaciones"
+                    class="w-full"
+                    styleClass="w-full"
+                    [routerLink]="['/hotel_restaurante/hotel/',item.id]"
+                  />
+                </div>
+              </ng-template>
+            </p-card>
+          }
+        </div>
+
+        <!-- paginator -->
+        <div style="margin-top: 1rem; display: flex; justify-content: center;">
+          <p-paginator
+            [first]="first"
+            [rows]="rows"
+            [totalRecords]="items.length"
+            [rowsPerPageOptions]="[3, 6, 10]"
+          />
+        </div>
+    </div>
+
+

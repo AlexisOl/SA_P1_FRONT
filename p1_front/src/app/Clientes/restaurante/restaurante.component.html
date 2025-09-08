@@ -1,0 +1,140 @@
+<app-header/>
+
+<div class="card flex justify-center mb-2">
+  <p-fieldset legend="Gestion de Restaurantes">
+    <p class="m-0">
+      Para crear un nuevo restaurante haga click en el boton
+    </p>
+    <p-button label="Nuevo restaurante" class="w-full" styleClass="w-full" (onClick)="this.verDialogoNuevoRestaurante()" />
+  </p-fieldset>
+</div>
+
+
+    <div class="h-full w-full mb-2">
+        <div
+          style="
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+            padding: 1rem;
+          "
+        >
+          @for (item of this.paginatedItems; track $index) {
+            <p-card
+              [style]="{
+                width: '100%',
+                overflow: 'hidden',
+                borderRadius: '1rem',
+                boxShadow: '0 4px 12px rgba(0,0,0,0.08)'
+              }"
+            >
+     
+              <ng-template #title>
+                <span style="font-weight: 600;">{{ item.nombre }}</span>
+              </ng-template>
+              <ng-template #subtitle>
+                <span style="color: #6b7280;">{{  item.direccion }}</span>
+              </ng-template>
+              <p style="color: #374151; margin: 0.5rem 0;">{{ item.telefono }}</p>
+
+              <ng-template #footer>
+                <div class="flex gap-4 mt-1">
+                  <p-button
+                    label="ver platillos"
+                    class="w-full"
+                    styleClass="w-full"
+                    [routerLink]="['/hotel_restaurante/restaurante/',item.id]"
+                  />
+                </div>
+              </ng-template>
+            </p-card>
+          }
+        </div>
+
+        <!-- paginator -->
+        <div style="margin-top: 1rem; display: flex; justify-content: center;">
+          <p-paginator
+            [first]="first"
+            [rows]="rows"
+            [totalRecords]="items.length"
+            [rowsPerPageOptions]="[3, 6, 10]"
+          />
+        </div>
+    </div>
+<!-- para nuevas habitaciones-->
+
+<div class="card flex justify-center">
+  <p-dialog 
+      header="Nueva Habitación" 
+      [modal]="true" 
+      [(visible)]="visibleRestaurante" 
+      [style]="{ width: '30rem' }"
+  >
+
+      <!-- Número de habitación -->
+      <div class="flex items-center gap-4 mb-3">
+        <label for="nombre" class="font-semibold w-32">Nombre del restaurante</label>
+        <input 
+          pInputText 
+          id="nombre" 
+          class="flex-auto border border-gray-400 rounded px-2 py-1 focus:border-blue-500 focus:outline-none" 
+          type="text"
+          [(ngModel)] =this.nombre
+        />
+      </div>
+
+      <!-- Cantidad de camas -->
+      <div class="flex items-center gap-4 mb-3">
+        <label for="telefono" class="font-semibold w-32">Telefono</label>
+        <input 
+          pInputText 
+          id="telefono" 
+          class="flex-auto border border-gray-400 rounded px-2 py-1 focus:border-blue-500 focus:outline-none" 
+          type="text"
+          [(ngModel)] =this.telefono
+
+        />
+      </div>
+
+      <!-- ID del hotel -->
+      <div class="flex items-center gap-4 mb-3">
+        <label for="direccion" class="font-semibold w-32">Direccion</label>
+        <input 
+          pInputText 
+          id="direccion" 
+          class="flex-auto border border-gray-400 rounded px-2 py-1 focus:border-blue-500 focus:outline-none" 
+          type="text"
+          [(ngModel)] =this.direccion
+
+        />
+      </div>
+
+
+      <!-- Precio -->
+      <div class="flex items-center gap-4 mb-4">
+        <label for="hotel" class="font-semibold w-32">Hotel</label>
+        <input 
+          pInputText 
+          id="hotel" 
+          class="flex-auto border border-gray-400 rounded px-2 py-1 focus:border-blue-500 focus:outline-none" 
+          type="number" 
+          [(ngModel)] =this.idhotel
+          step="1"
+        />
+      </div>
+
+      <!-- Botones -->
+      <div class="flex justify-end gap-2 mt-4">
+        <p-button 
+          label="Cancelar" 
+          severity="secondary" 
+          (click)="visibleRestaurante = false" 
+        />
+        <p-button 
+          label="Guardar" 
+          (click)="guardarRestaurante()" 
+        />
+      </div>
+
+  </p-dialog>
+</div>
