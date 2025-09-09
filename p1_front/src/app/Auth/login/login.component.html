@@ -20,7 +20,7 @@
           type="text"
           pInputText
           id="name"
-          [(ngModel)]="name"
+          [(ngModel)]="username"
           name="Usuario"
           placeholder="Usuario"
           [pAutoFocus]="true"
@@ -34,18 +34,19 @@
           <i class="pi pi-envelope"></i>
         </p-inputicon>
         <input
-          type="email"
+          type="password"
           pInputText
           id="email"
-          [(ngModel)]="email"
-          name="email"
-          placeholder="Email"
+          [(ngModel)]="password"
+          name="Contrasenia"
+          placeholder="Contrasenia"
           class="w-full"
         />
       </p-iconfield>
 
       <!-- Botón -->
-      <p-button type="submit" label="Ingresar" class="w-full"></p-button>
+      <p-button type="submit" label="Ingresar" class="w-full"
+      (onClick)="this.ingresoUsuario()"></p-button>
     </form>
 
     <div class="text-center mt-4 text-sm text-600">

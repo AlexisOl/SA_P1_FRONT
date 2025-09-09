@@ -45,7 +45,7 @@
         <div class="flex gap-4 mt-1">
           <p-button label="Ver comentarios" class="w-full" styleClass="w-full" (click)="showDialog(item.id)" />
           <p-button label="Reservar habitacion" class="w-full" styleClass="w-full"
-            [routerLink]="['/hotel_restaurante/hotel/',item.id]" />
+            (onClick)="this.visibleReservacion= true" />
         </div>
       </ng-template>
     </p-card>
@@ -192,3 +192,70 @@
   </p-dialog>
 </div>
 
+<!-- para reservar-->
+<div class="card flex justify-center">
+  <p-dialog 
+      header="Generar Reservación" 
+      [modal]="true" 
+      [(visible)]="visibleReservacion" 
+      [style]="{ width: '30rem' }"
+  >
+
+      <!-- Fecha Entrada -->
+      <div class="flex items-center gap-4 mb-3">
+        <label for="fechaEntrada" class="font-semibold w-32">Fecha Entrada</label>
+        <input 
+          pInputText 
+          id="fechaEntrada" 
+          type="date" 
+          class="flex-auto border border-gray-400 rounded px-2 py-1 focus:border-blue-500 focus:outline-none"
+          [(ngModel)]="fechaEntrada"
+        />
+      </div>
+
+      <!-- Fecha Salida -->
+      <div class="flex items-center gap-4 mb-3">
+        <label for="fechaSalida" class="font-semibold w-32">Fecha Salida</label>
+        <input 
+          pInputText 
+          id="fechaSalida" 
+          type="date" 
+          class="flex-auto border border-gray-400 rounded px-2 py-1 focus:border-blue-500 focus:outline-none"
+          [(ngModel)]="fechaSalida"
+        />
+      </div>
+
+      <!-- Habitación -->
+      <div class="flex items-center gap-4 mb-3">
+        <label for="habitacion" class="font-semibold w-32">Habitación</label>
+          <p-dropdown 
+            id="habitacion"
+            [options]="this.listadoHabitaciones"
+            optionLabel="numero_habitacion"
+            optionValue="id"
+            placeholder="Selecciona habitación"
+            class="flex-auto"
+            [(ngModel)]="habitacion"
+          />
+
+      </div>
+
+
+
+ 
+
+      <!-- Botones -->
+      <div class="flex justify-end gap-2 mt-4">
+        <p-button 
+          label="Cancelar" 
+          severity="secondary" 
+          (click)="visibleReservacion = false" 
+        />
+        <p-button 
+          label="Guardar" 
+          (click)="guardarReservacion()" 
+        />
+      </div>
+
+  </p-dialog>
+</div>

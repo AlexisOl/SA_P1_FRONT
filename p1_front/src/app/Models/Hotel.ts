@@ -28,6 +28,7 @@ export interface reservacion {
  id?: String;
  fechaEntrada:Date;
  fechaSalida:Date;
-     habitacion:habitacion;
-     idusuario: String;
+     habitacion?:String;
+     idusuario: String|null;
+     tipoReservacion?:String
 }

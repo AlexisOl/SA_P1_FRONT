@@ -21,14 +21,18 @@ import { AccordionModule } from 'primeng/accordion';
 import { CalificacionServicioService } from '../../services/hotel/calificacion-servicio.service';
 import { FieldsetModule } from 'primeng/fieldset';
 import { SelectModule } from 'primeng/select';
-import { habitacion } from '../../Models/Hotel';
+import { habitacion, reservacion } from '../../Models/Hotel';
+import { DropdownModule } from 'primeng/dropdown';
+import { AuthService } from '../../services/usuario/auth.service';
+import { ReservaServicioService } from '../../services/hotel/reserva-servicio.service';
+import { AlertaServicioService } from '../../services/utils/alerta-servicio.service';
 @Component({
   selector: 'app-habitaciones-por-hotel',
-  imports: [Card, HeaderComponent, Button, FormsModule,
+  imports: [Card, HeaderComponent, Button, FormsModule,DropdownModule,
     SplitterModule, Rating, FieldsetModule, SelectModule
     , ScrollPanelModule, CardModule, ButtonModule,
     CurrencyPipe, AccordionModule, AvatarModule, BadgeModule,
-    PanelModule, PaginatorModule, DialogModule, FileUploadModule, HeaderComponent, RouterLink, RatingModule
+    PanelModule, PaginatorModule, DialogModule, FileUploadModule, HeaderComponent,  RatingModule
   ],
   templateUrl: './habitaciones-por-hotel.component.html',
   styleUrl: './habitaciones-por-hotel.component.css'
@@ -38,9 +42,15 @@ export class HabitacionesPorHotelComponent implements OnInit {
   listadoComentarios: any[] = []
   idHotel!: string
   habitacionServicio = inject(HabitacionServicioService)
+  authServicio = inject(AuthService)
   comentariosServicio = inject(CalificacionServicioService)
+  reservacionServicio = inject(ReservaServicioService)
+  AlertaServicio=inject(AlertaServicioService)
+
   visible: boolean = false;
   visibleNuevaHabitacion: boolean = false;
+  visibleReservacion: boolean = false;
+
 
   // para la habitacion
   numeroHabitacion!: Number
@@ -54,6 +64,11 @@ export class HabitacionesPorHotelComponent implements OnInit {
     { label: 'Triple', value: 'TRIPLE' },
     { label: 'VIP', value: 'VIP' },
   ];
+
+  // para las reservaciones
+  fechaEntrada!:Date
+  fechaSalida!:Date
+  habitacion!:String
 
 
   constructor(private route: ActivatedRoute) { }
@@ -112,6 +127,38 @@ export class HabitacionesPorHotelComponent implements OnInit {
 
       }
     )
+  }
+
+
+  guardarReservacion() {
+
+    const nuevaReservacion: reservacion= {
+      fechaEntrada: this.fechaEntrada,
+      fechaSalida: this.fechaSalida,
+      habitacion: this.habitacion,
+      idusuario: this.authServicio.getId(),
+      tipoReservacion: "EN_ESPERA"
+    }
+
+    console.log(nuevaReservacion);
+    
+    this.reservacionServicio.crearReservacion(nuevaReservacion).subscribe(
+      (next) => {
+        this.visibleReservacion=false
+             this.AlertaServicio.generacionAlerta(
+        'Éxito', 'La reservacion fue ingresada correctamente.', 'success'
+        )
+        
+      }, (error) => {
+        this.visibleReservacion=false
+
+           this.AlertaServicio.generacionAlerta(
+          'Error', 'Hubo un problema al generar la reservacion.', 'error'
+        )
+
+      }
+    )
+
   }
 
 
