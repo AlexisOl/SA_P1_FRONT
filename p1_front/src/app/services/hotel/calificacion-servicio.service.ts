@@ -20,4 +20,12 @@ export class CalificacionServicioService {
     return this.http.get<calificacion[]>(
       this.URL+"/habitacion/"+id)
   }
+
+
+    crearComentario(nuevaCalificacion: calificacion) {
+      return this.http.post(
+        this.URL, nuevaCalificacion
+      )
+    }
+  
 }

@@ -21,7 +21,7 @@ export interface calificacion {
         id?: String;
      comentario:String;
     puntuacion:Number;
-      reservacion:reservacion;
+      reservacion:String;
 }
 
 export interface reservacion {

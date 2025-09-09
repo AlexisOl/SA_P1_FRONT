@@ -22,7 +22,6 @@
                         <div class="flex flex-col md:flex-row justify-between md:items-center flex-1 gap-6">
                     <div class="flex flex-col md:flex-row justify-between items-start gap-2">
                 <div>
-                  <span class="font-medium text-secondary text-sm">ID: {{ item.id }}</span>
                   <div class="text-lg font-medium text-surface-900 dark:text-surface-0 mt-2">
                     Habitación: {{ item.habitacion.numero_habitacion }}
                   </div>
@@ -36,16 +35,20 @@
               </div>
                             <div class="flex flex-col md:items-end gap-8">
                                 <span class="text-xl font-semibold text-surface-900 dark:text-surface-0">{{
-                                    '$' + item.price
+                                    'Q' + item.precioGlobal
                                 }}</span>
                                 <div class="flex flex-row-reverse md:flex-row gap-2">
-                                    <p-button icon="pi pi-heart" [outlined]="true" />
+                                     <p-toast />
+    <p-confirmdialog />
                                     <p-button
                                         icon="pi pi-shopping-cart"
                                         class="flex-auto md:flex-initial whitespace-nowrap"
-                                        label="Buy Now"
+                                        label="Pague su reservacion"
+                                        (click)="confirm1($event, item)"
+                                         [outlined]="true"
                                         [disabled]="item.inventoryStatus === 'OUTOFSTOCK'"
                                     />
+                                    
                                 </div>
                             </div>
                         </div>
@@ -55,3 +58,41 @@
         </ng-template>
     </p-dataview>
 </div>
+
+<!-- para la generacion de comentarios-->
+
+<div class="card flex justify-center">
+  <p-dialog 
+      header="Comentenos su experiencia" 
+      [modal]="true" 
+      [(visible)]="visibleComentario" 
+      [style]="{ width: '30rem' }"
+  >
+
+      <!-- calificacion -->
+        <div class="card flex justify-center">
+            <p-rating [(ngModel)]="calificacion"/>
+      </div>
+      
+      <div class="flex items-center gap-4 mb-3">
+        <label for="Nombre" class="font-semibold w-32">Comentario</label>
+<textarea rows="5"cols="30" pTextarea [autoResize]="true" [(ngModel)]="comentario"></textarea>
+      </div>
+
+
+      <!-- Botones -->
+      <div class="flex justify-end gap-2 mt-4">
+        <p-button 
+          label="Cancelar" 
+          severity="secondary" 
+          (click)="visibleComentario = false" 
+        />
+        <p-button 
+          label="Guardar" 
+          (click)="guardarComentario()" 
+        />
+      </div>
+
+  </p-dialog>
+</div>
+
