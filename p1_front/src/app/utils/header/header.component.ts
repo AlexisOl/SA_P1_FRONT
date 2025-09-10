@@ -80,7 +80,19 @@ export class HeaderComponent implements OnInit {
             {
                 label: 'Restaurantes',
                 root: true,
-                direccion: '/hotel_restaurante/restaurantes'
+                direccion: '/hotel_restaurante/restaurantes',
+                                items: [
+                    [
+                        {
+                                                       items: [
+                                { label: 'Restaurantes', icon: 'pi pi-list', direccion: '/hotel_restaurante/restaurantes', },
+                                { label: 'Compras', icon: 'pi pi-list', direccion: '/hotel_restaurante/comprasRestaurante/' },
+                            ]
+                        }
+                    ],
+
+
+                ]
 
             },
 

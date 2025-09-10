@@ -23,4 +23,12 @@ export class ReservaServicioService {
       this.URL + "/clientes/" + id
     )
   }
+
+    obtenerReservacionesHotel(id: String|null): Observable<reservacion[]> {
+    return this.http.get<reservacion[]>(
+      this.URL + "/hotel/" + id
+    )
+  }
+
+
 }

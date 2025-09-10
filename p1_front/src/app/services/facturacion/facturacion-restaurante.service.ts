@@ -17,7 +17,7 @@ export class FacturacionRestauranteService {
   }
 
 
-  obtenerFacturacionEspecifica(id: String) {
+  obtenerFacturacionEspecifica(id: String|null) {
     return this.http.get(
       this.URL+"/"+id
     )

@@ -5,6 +5,7 @@ import { HabitacionesPorHotelComponent } from './habitaciones-por-hotel/habitaci
 import { RestauranteComponent } from './restaurante/restaurante.component';
 import { PlatillosPorRestauranteComponent } from './platillos-por-restaurante/platillos-por-restaurante.component';
 import { ReservacionesComponent } from './reservaciones/reservaciones.component';
+import { CompraComidaComponent } from './compra-comida/compra-comida.component';
 
 export const ClientesRoutes: Routes = [
 
@@ -13,6 +14,7 @@ export const ClientesRoutes: Routes = [
     {path: 'restaurantes', component: RestauranteComponent},
     {path: 'reservaciones', component: ReservacionesComponent},
     {path: 'restaurante/:id', component: PlatillosPorRestauranteComponent},
+    {path: 'comprasRestaurante', component: CompraComidaComponent},
     {path: 'hotel/:id', component: HabitacionesPorHotelComponent},
 
 ];

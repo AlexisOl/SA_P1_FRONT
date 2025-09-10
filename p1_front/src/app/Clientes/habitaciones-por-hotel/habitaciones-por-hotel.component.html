@@ -11,6 +11,63 @@
     <p-button label="Nueva habitacion" class="w-full" styleClass="w-full" (onClick)="this.verDialogoNuevaHabitacion()" />
   </p-fieldset>
 </div>
+
+<!-- panel para el calendario-->
+ <p-card class="max-w-6xl mx-auto mt-6 shadow-lg border border-gray-700 bg-gray-800 text-white">
+  <div class="flex flex-col md:flex-row md:justify-between md:items-center mb-4">
+    <div class="flex gap-2 mb-2 md:mb-0">
+      <button mwlCalendarPreviousView
+              [view]="view"
+              [(viewDate)]="viewDate"
+              (viewDateChange)="closeOpenMonthViewDay()"
+              class="px-4 py-2 bg-blue-600 hover:bg-blue-700 rounded text-white">
+        Anterior
+      </button>
+      <button mwlCalendarToday
+              [(viewDate)]="viewDate"
+              class="px-4 py-2 bg-green-600 hover:bg-green-700 rounded text-white">
+        Hoy
+      </button>
+      <button mwlCalendarNextView
+              [view]="view"
+              [(viewDate)]="viewDate"
+              (viewDateChange)="closeOpenMonthViewDay()"
+              class="px-4 py-2 bg-blue-600 hover:bg-blue-700 rounded text-white">
+        Siguiente
+      </button>
+    </div>
+
+    <h3 class="text-xl font-semibold">{{ viewDate | calendarDate: view + 'ViewTitle' : 'en' }}</h3>
+
+    <div class="flex gap-2 mt-2 md:mt-0">
+      <button (click)="setView(CalendarView.Month)"
+              [ngClass]="{'bg-blue-600 text-white': view === CalendarView.Month, 'bg-gray-700 text-gray-300': view !== CalendarView.Month}"
+              class="px-4 py-2 rounded">
+        Mes
+      </button>
+      <button (click)="setView(CalendarView.Week)"
+              [ngClass]="{'bg-blue-600 text-white': view === CalendarView.Week, 'bg-gray-700 text-gray-300': view !== CalendarView.Week}"
+              class="px-4 py-2 rounded">
+        Semana
+      </button>
+      <button (click)="setView(CalendarView.Day)"
+              [ngClass]="{'bg-blue-600 text-white': view === CalendarView.Day, 'bg-gray-700 text-gray-300': view !== CalendarView.Day}"
+              class="px-4 py-2 rounded">
+        Dia
+      </button>
+    </div>
+  </div>
+
+  <div>
+    <ng-container [ngSwitch]="view">
+      <mwl-calendar-month-view *ngSwitchCase="CalendarView.Month" [viewDate]="viewDate" [events]="events" />
+      <mwl-calendar-week-view *ngSwitchCase="CalendarView.Week" [viewDate]="viewDate" [events]="events" />
+      <mwl-calendar-day-view *ngSwitchCase="CalendarView.Day" [viewDate]="viewDate" [events]="events" />
+    </ng-container>
+  </div>
+</p-card>
+
+
 <!-- Panel LISTADO -->
 <div class="h-full w-full mb-2">
   <div style="

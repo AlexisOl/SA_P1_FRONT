@@ -14,7 +14,7 @@ import { RatingModule } from 'primeng/rating';
 import { Rating } from 'primeng/rating';
 import { FormsModule } from '@angular/forms';
 import { pipe } from 'rxjs';
-import { CurrencyPipe } from '@angular/common';
+import { CommonModule, CurrencyPipe } from '@angular/common';
 import { AvatarModule } from 'primeng/avatar';
 import { BadgeModule } from 'primeng/badge';
 import { AccordionModule } from 'primeng/accordion';
@@ -26,11 +26,12 @@ import { DropdownModule } from 'primeng/dropdown';
 import { AuthService } from '../../services/usuario/auth.service';
 import { ReservaServicioService } from '../../services/hotel/reserva-servicio.service';
 import { AlertaServicioService } from '../../services/utils/alerta-servicio.service';
+import { CalendarEvent, CalendarModule, CalendarView } from 'angular-calendar';
 @Component({
   selector: 'app-habitaciones-por-hotel',
   imports: [Card, HeaderComponent, Button, FormsModule,DropdownModule,
     SplitterModule, Rating, FieldsetModule, SelectModule
-    , ScrollPanelModule, CardModule, ButtonModule,
+    , ScrollPanelModule, CardModule, ButtonModule,CalendarModule,CommonModule,
     CurrencyPipe, AccordionModule, AvatarModule, BadgeModule,
     PanelModule, PaginatorModule, DialogModule, FileUploadModule, HeaderComponent,  RatingModule
   ],
@@ -70,6 +71,18 @@ export class HabitacionesPorHotelComponent implements OnInit {
   fechaSalida!:Date
   habitacion!:String
 
+  // para el calendario
+
+    reservacionesServicio = inject(ReservaServicioService)
+    ListadoReservaciones:reservacion[]= []
+    readonly CalendarView = CalendarView;
+    viewDate = new Date();
+    events: CalendarEvent[] = [
+       ];
+    view: CalendarView =CalendarView.Month;
+  
+  
+
 
   constructor(private route: ActivatedRoute) { }
   ngOnInit(): void {
@@ -82,9 +95,46 @@ export class HabitacionesPorHotelComponent implements OnInit {
 
       }
     )
+
+
+     this.reservacionesServicio.obtenerReservacionesHotel(this.idHotel).subscribe(
+      (valores) => {
+        this.ListadoReservaciones = valores
+
+      // Transformamos las reservas en eventos
+      this.events = this.ListadoReservaciones.map((reserva:any) => ({
+        start: new Date(reserva.fechaEntrada),
+        end: new Date(reserva.fechaSalida),
+        title: `Habitación ${reserva.habitacion.numero_habitacion} - ${reserva.tipoReservacion}`,
+        color: {
+          primary: this.randomColor(),
+          secondary: this.randomColor()
+        },
+        allDay: true,
+      }));
+        
+      }
+
+      
+    )
   }
 
 
+  randomColor() {
+  const letters = '0123456789ABCDEF';
+  let color = '#';
+  for (let i = 0; i < 6; i++) {
+    color += letters[Math.floor(Math.random() * 16)];
+  }
+  return color;
+}
+
+  setView(view: CalendarView) {
+    this.view = view;
+  }
+
+    closeOpenMonthViewDay() {
+  }
 
   showDialog(id: String) {
     this.visible = true;

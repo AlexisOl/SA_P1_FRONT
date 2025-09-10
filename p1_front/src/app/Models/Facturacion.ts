@@ -6,7 +6,11 @@ export interface FacturacionHotel {
 
 
 export interface FacturacionRestaurante {
- 
+     id?:String;
+ fecha:Date;
+ id_Cliente:String;
+ precioTotal:Number;
+
 }
 
 export interface ListadoElementosDTO{
