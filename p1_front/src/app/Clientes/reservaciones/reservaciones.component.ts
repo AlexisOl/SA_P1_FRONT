@@ -1,4 +1,10 @@
 import { Component, inject, OnInit, signal } from '@angular/core';
+import * as pdfMake from "pdfmake/build/pdfmake";
+import * as pdfFonts from 'pdfmake/build/vfs_fonts';
+
+(<any>pdfMake).addVirtualFileSystem(pdfFonts);
+
+
 import { HeaderComponent } from "../../utils/header/header.component";
 import { CommonModule } from '@angular/common';
 import { ButtonModule } from 'primeng/button';
@@ -60,6 +66,9 @@ export class ReservacionesComponent implements OnInit {
 
         this.valores = valores.map((reserva: any) => ({
           ...reserva,
+          dias:  ((new Date(reserva.fechaSalida).getTime() -
+              new Date(reserva.fechaEntrada).getTime()) /
+              (1000 * 60 * 60 * 24)),
           precioGlobal: reserva.habitacion.precio *
             ((new Date(reserva.fechaSalida).getTime() -
               new Date(reserva.fechaEntrada).getTime()) /
@@ -74,15 +83,15 @@ export class ReservacionesComponent implements OnInit {
   }
 
   getSeverity(product: any) {
-    switch (product.inventoryStatus) {
-      case 'INSTOCK':
+    switch (product.tipoReservacion) {
+      case 'EN_ESPERA':
         return 'success';
 
-      case 'LOWSTOCK':
-        return 'warn';
-
-      case 'OUTOFSTOCK':
+      case 'CANCELADA':
         return 'danger';
+
+      case 'PAGADA':
+        return 'warn';
 
       default:
         return null;
@@ -159,6 +168,39 @@ export class ReservacionesComponent implements OnInit {
 
       }
     )
+  }
+
+
+  // para hacer pdfs
+    generarFacturaPDF(item:any) {
+    
+    const documentDefinition: any = {
+      content: [
+        { text: 'Factura '+item.habitacion.hotel.nombre, style: 'header' },
+        { text: `Fecha: ${new Date().toLocaleDateString()}` },
+        { text: `Cliente: `+this.authServicio.getNombre() },
+        { text: `------------------------------------` },
+        {
+          table: {
+            widths: ['*', 'auto', 'auto'],
+            body: [
+              ['Descripción', 'Cantidad', 'Precio'],
+              ['Habitación '+item.habitacion.tipoHabitacion, item.dias+' noches', 'Q'+item.precioGlobal],
+              [{ text: 'TOTAL', bold: true }, '', { text: 'Q'+item.precioGlobal, bold: true }]
+            ]
+          }
+        }
+      ],
+      styles: {
+        header: {
+          fontSize: 18,
+          bold: true,
+          margin: [0, 0, 0, 10]
+        }
+      }
+    };
+
+    pdfMake.createPdf(documentDefinition).download('factura.pdf');
   }
 
 }

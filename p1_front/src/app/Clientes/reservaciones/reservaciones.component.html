@@ -12,7 +12,7 @@
                         <div class="md:w-40 relative">
                  
                             <p-tag
-                                [value]="item.inventoryStatus"
+                                [value]="item.tipoReservacion"
                                 [severity]="getSeverity(item)"
                                 class="absolute dark:!bg-surface-900"
                                 [style.left.px]="4"
@@ -46,7 +46,18 @@
                                         label="Pague su reservacion"
                                         (click)="confirm1($event, item)"
                                          [outlined]="true"
-                                        [disabled]="item.inventoryStatus === 'OUTOFSTOCK'"
+                                        [disabled]="item.tipoReservacion === 'CANCELADA'||
+                                        item.tipoReservacion === 'PAGADA'"
+                                    />
+                                    
+                                    <p-button
+                                        icon="pi pi-file-pdf"
+                                        class="flex-auto md:flex-initial whitespace-nowrap"
+                                        label="Descargue su reservacion"
+                                        (click)="generarFacturaPDF(item)"
+                                         [outlined]="true"
+                                           [disabled]="item.tipoReservacion === 'CANCELADA'||
+                                        item.tipoReservacion === 'EN_ESPERA'"
                                     />
                                     
                                 </div>
@@ -73,7 +84,7 @@
         <div class="card flex justify-center">
             <p-rating [(ngModel)]="calificacion"/>
       </div>
-      
+
       <div class="flex items-center gap-4 mb-3">
         <label for="Nombre" class="font-semibold w-32">Comentario</label>
 <textarea rows="5"cols="30" pTextarea [autoResize]="true" [(ngModel)]="comentario"></textarea>

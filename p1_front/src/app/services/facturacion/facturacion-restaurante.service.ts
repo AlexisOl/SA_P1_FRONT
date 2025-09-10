@@ -1,19 +1,16 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
 import { environment } from '../../../environments/environment.development';
-import { reservacion } from '../../Models/Hotel';
-import { FacturacionHotel } from '../../Models/Facturacion';
+import { DetallefacturacionRestauranteDTO, FacturacionHotel } from '../../Models/Facturacion';
 
 @Injectable({
   providedIn: 'root'
 })
-export class FacturacionHotelService {
-
-  readonly URL = environment.URL_GATEWAY + "detalleFactura";
+export class FacturacionRestauranteService {
+  readonly URL = environment.URL_GATEWAY + "detalleFacturaRestaurante";
   constructor(private http: HttpClient) { }
 
-  crearFacturacion(facturacion: FacturacionHotel) {
+  crearFacturacion(facturacion: DetallefacturacionRestauranteDTO) {
     return this.http.post(
       this.URL, facturacion
     )
@@ -25,7 +22,5 @@ export class FacturacionHotelService {
       this.URL+"/"+id
     )
   }
-
-
 
 }

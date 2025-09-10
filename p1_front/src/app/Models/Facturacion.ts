@@ -6,10 +6,17 @@ export interface FacturacionHotel {
 
 
 export interface FacturacionRestaurante {
+ 
+}
 
+export interface ListadoElementosDTO{
+    idPlatillo:String
+    cantidad:Number
 }
 
 
-export interface DetallefacturacionRestaurante {
-
+export interface DetallefacturacionRestauranteDTO {
+     idCliente:String |null
+     fecha:String
+     listadoElementosDTO:ListadoElementosDTO[]
 }

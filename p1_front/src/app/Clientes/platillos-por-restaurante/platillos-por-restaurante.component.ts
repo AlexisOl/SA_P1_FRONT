@@ -1,4 +1,4 @@
-import { CurrencyPipe } from '@angular/common';
+import { CurrencyPipe, formatDate } from '@angular/common';
 import { Component, inject, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { ActivatedRoute, RouterLink } from '@angular/router';
@@ -22,14 +22,21 @@ import { PlatillosServicioService } from '../../services/restaurante/platillos-s
 import { Platillo } from '../../Models/Restaurantes';
 import { AlertaServicioService } from '../../services/utils/alerta-servicio.service';
 import { TagModule } from 'primeng/tag';
+import { TableModule } from 'primeng/table';
+import { InputNumber } from 'primeng/inputnumber';
+import { CarritoService } from '../../services/restaurante/carrito.service';
+import { DetallefacturacionRestauranteDTO, ListadoElementosDTO } from '../../Models/Facturacion';
+import { AuthService } from '../../services/usuario/auth.service';
+import { FacturacionRestauranteService } from '../../services/facturacion/facturacion-restaurante.service';
 @Component({
   selector: 'app-platillos-por-restaurante',
   imports: [
-    Card, HeaderComponent, Button, FormsModule,
+    Card, HeaderComponent, Button, FormsModule, InputNumber,
     SplitterModule, Rating, FieldsetModule, SelectModule, TagModule
     , ScrollPanelModule, CardModule, ButtonModule,
     CurrencyPipe, AccordionModule, AvatarModule, BadgeModule,
-    PanelModule, PaginatorModule, DialogModule, FileUploadModule, HeaderComponent,  RatingModule
+    PanelModule, PaginatorModule, DialogModule, FileUploadModule, HeaderComponent, RatingModule,
+    TableModule
   ],
   templateUrl: './platillos-por-restaurante.component.html',
   styleUrl: './platillos-por-restaurante.component.css'
@@ -40,10 +47,15 @@ export class PlatillosPorRestauranteComponent implements OnInit {
   idRestaurante!: string
   platillosServicio = inject(PlatillosServicioService)
   comentariosRestauranteServicio = inject(CalificacionesRestauranteServicioService)
-    AlertaServicio = inject(AlertaServicioService)
-  
+  AlertaServicio = inject(AlertaServicioService)
+  carrito = inject(CarritoService)
+  AuthServicio = inject(AuthService)
+  facturaRestauranteServicio = inject(FacturacionRestauranteService)
+
   visible: boolean = false;
   visibleNuevoPlatillo: boolean = false;
+  visibleCompraPlatilloEspecifico: boolean = false;
+  cantidadEspecifica!: number
 
   // para la habitacion
   nombre!: String
@@ -83,6 +95,12 @@ export class PlatillosPorRestauranteComponent implements OnInit {
     this.paginatedItems = this.items.slice(this.first, this.first + this.rows);
   }
 
+  cambiarPagina(event: any) {
+    this.first = event.first;
+    this.rows = event.rows;
+    this.updatePaginatedItems();
+  }
+
   showDialog(id: String) {
     this.visible = true;
     this.listadoComentarios = []
@@ -112,23 +130,64 @@ export class PlatillosPorRestauranteComponent implements OnInit {
     }
 
     console.log(nuevoPlatillo);
-    
+
     this.platillosServicio.crearPlatillos(nuevoPlatillo).subscribe(
       (next) => {
-        this.visibleNuevoPlatillo=false
-             this.AlertaServicio.generacionAlerta(
-        'Éxito', 'El platillo fue creado correctamente.', 'success'
+        this.visibleNuevoPlatillo = false
+        this.AlertaServicio.generacionAlerta(
+          'Éxito', 'El platillo fue creado correctamente.', 'success'
         )
-        
-      }, (error) => {
-        this.visibleNuevoPlatillo=false
 
-           this.AlertaServicio.generacionAlerta(
+      }, (error) => {
+        this.visibleNuevoPlatillo = false
+
+        this.AlertaServicio.generacionAlerta(
           'Error', 'Hubo un problema al crear el platillo.', 'error'
         )
 
       }
     )
+  }
+
+
+  AgregarPlatillo(item:any) {
+    this.carrito.agregarPlatillo(item, 1)
+    console.log(this.carrito.carrito());
+    
+  }
+
+  comprar(){
+
+    const nuevaFactura: DetallefacturacionRestauranteDTO = {
+      idCliente: this.AuthServicio.getId(),
+      fecha: formatDate(new Date(Date.now()), 'yyyy-MM-dd', 'en-US'),
+      listadoElementosDTO: this.carrito.GenerarListadoCompras()
+    }
+
+
+
+    console.log(nuevaFactura);
+    
+
+    this.facturaRestauranteServicio.crearFacturacion(nuevaFactura).subscribe(
+                  (next) => {
+        this.carrito.limpiarCarrito()
+             this.AlertaServicio.generacionAlerta(
+        'Éxito', 'La compra fue registrada correctamente.', 'success'
+        )
+        
+      }, (error) => {
+                this.carrito.limpiarCarrito()
+
+
+           this.AlertaServicio.generacionAlerta(
+          'Error', 'Hubo un problema al registrar su compra.', 'error'
+        )
+
+      }
+    )
+
+
   }
 
 
