@@ -29,4 +29,10 @@ export class RestauranteServicioService {
       this.URL, restaurante
     )
   }
+
+    public listarRestauranteEspecifico(id:String):Observable<restaurantes> {
+    return  this.http.get<restaurantes>(
+      this.URL+"/"+id
+    )
+  }
 }

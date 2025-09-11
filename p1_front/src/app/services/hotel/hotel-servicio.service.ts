@@ -2,6 +2,7 @@ import { Injectable, signal } from '@angular/core';
 import { environment } from '../../../environments/environment.development';
 import { HttpClient } from '@angular/common/http';
 import { hotel } from '../../Models/Hotel';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -17,7 +18,11 @@ export class HotelServicioService {
    }
 
 
-
+  public listarHotelesPaginator():Observable<hotel[]> {
+    return  this.http.get<hotel[]>(
+      this.URL
+    )
+  }
   public listarHoteles() {
     this.http.get<hotel[]>(
       this.URL

@@ -107,10 +107,18 @@ export class AuthService {
     return null;
   }
 
-  public getNombreArea(): number | null {
+  public getTrabajaRestaurante(): String | null {
     const decodedToken = this.decodeToken();
-    if (decodedToken && decodedToken.area.nombre) {
-        return decodedToken.area.nombre;
+    if (decodedToken && decodedToken.id_RESTAURANTE) {
+        return decodedToken.id_RESTAURANTE;
+    }
+    return null;
+  }
+
+    public getTrabajaHotel(): String | null {
+    const decodedToken = this.decodeToken();
+    if (decodedToken && decodedToken.id_HOTEL) {
+        return decodedToken.id_HOTEL;
     }
     return null;
   }

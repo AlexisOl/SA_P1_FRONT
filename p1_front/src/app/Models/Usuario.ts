@@ -17,3 +17,21 @@ export interface persona{
 }
 
 
+export interface empleadoHotel {
+     id?: String
+     persona:persona
+     idhotel:Number
+     salario:Number
+     fecha:Date
+     estado:Boolean
+}
+
+export interface empleadoRestaurante {
+     id?:String
+     persona:persona
+     RestauranteId:String
+     salario:Number
+     fecha:Date
+     estado:Boolean
+}
+

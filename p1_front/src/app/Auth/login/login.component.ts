@@ -73,9 +73,23 @@ export class LoginComponent {
         this.route.navigate(['/hotel_restaurante/']);
       } else if (idArea === "ADMINISTRADOR") {
         this.route.navigate(['/admin/']);
-      } else {
-        this.route.navigate(['/bodega/']);
-      } 
+      } else   if (idArea=== "EMPLEADO") {
+        if (this.authServicio.getTrabajaRestaurante()==="No tiene" &&
+        this.authServicio.getTrabajaHotel()!=="No tiene"
+       ) {
+          // va para el hotel
+        this.route.navigate(['/admin/hotel/'+this.authServicio.getTrabajaHotel()]);
+
+        } else if (this.authServicio.getTrabajaHotel()==="No tiene"
+      &&
+        this.authServicio.getTrabajaRestaurante()!=="No tiene"){
+          // va para el restaurante
+        this.route.navigate(['/admin/restaurante/'+this.authServicio.getTrabajaRestaurante()]);
+          
+
+        }
+
+        }
     }
   }
 }
