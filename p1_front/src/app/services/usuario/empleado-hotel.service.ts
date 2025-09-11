@@ -14,13 +14,13 @@ export class EmpleadoHotelService {
   }
 
 
-  public listarEmpleados(id: String): Observable<empleadoHotel[]> {
-    return this.http.get<empleadoHotel[]>(
+  public listarEmpleados(id: Number): Observable<any[]> {
+    return this.http.get<any[]>(
       this.URL + "/hotel/" + id
     )
   }
 
-  public crearEmpleadosHotel(empleado: empleadoHotel): Observable<empleadoHotel> {
+  public crearEmpleadosHotel(empleado: any): Observable<empleadoHotel> {
     return this.http.post<empleadoHotel>(
       this.URL, empleado
     )

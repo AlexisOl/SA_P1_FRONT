@@ -38,4 +38,10 @@ export class HotelServicioService {
       }
     )
   }
+
+    public listarHotelEspecifico(id:String):Observable<hotel> {
+    return  this.http.get<hotel>(
+      this.URL+"/"+id
+    )
+  }
 }

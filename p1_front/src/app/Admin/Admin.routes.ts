@@ -5,6 +5,7 @@ import { PaginaPrincipalComponent } from '../Clientes/pagina-principal/pagina-pr
 import { EmpleadosComponent } from './empleados/empleados.component';
 import { EmpleadosHotelComponent } from './empleados-hotel/empleados-hotel.component';
 import { EmpleadosRestauranteComponent } from './empleados-restaurante/empleados-restaurante.component';
+import { ReportesComponent } from './reportes/reportes.component';
 
 export const AdminRoutes: Routes = [
 
@@ -14,5 +15,6 @@ export const AdminRoutes: Routes = [
     {path: 'informacionEmpresarial', component: EmpleadosComponent},
     {path: 'hotel/:id', component: EmpleadosHotelComponent},
     {path: 'restaurante/:id', component: EmpleadosRestauranteComponent},
+    {path: 'reportes', component: ReportesComponent},
 
 ];

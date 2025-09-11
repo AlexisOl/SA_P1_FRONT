@@ -1,40 +1,212 @@
-<app-header/>
+<app-header />
+<p-fieldset legend="Información general de hotel" class="mb-6">
+    <div class="grid grid-cols-1 gap-3 p-2">
+        <div class="flex">
+            <span class="font-semibold w-32">Nombre:</span>
+            <span>{{ this.hotelEspecifico.nombre }}</span>
+        </div>
+        <div class="flex">
+            <span class="font-semibold w-32">Teléfono:</span>
+            <span>{{ this.hotelEspecifico.telefono }}</span>
+        </div>
+        <div class="flex">
+            <span class="font-semibold w-32">Dirección:</span>
+            <span>{{ this.hotelEspecifico.direccion }}</span>
+        </div>
+    </div>
+</p-fieldset>
 
-                <p-panel header="Informacion del hotel">
-                    <p class="m-3">
-                        En esta sección podrá visualizar el listado de hoteles
-                    </p>
-                    
-                    <div class="card">
-                        <p-table [value]="[1]" [paginator]="true" [rows]="5"
-                            [rowsPerPageOptions]="[5, 10, 20]" stripedRows [tableStyle]="{'min-width': '50rem'}">
-                            <ng-template #header>
-                                <tr>
-                                    <th>No.</th>
-                                    <th>Nombre</th>
-                                    <th>Dirección</th>
-                                    <th>Teléfono</th>
-                                    <th style="width: 5rem"></th>
-                                </tr>
-                            </ng-template>
-                            <ng-template #body let-product let-rowIndex="rowIndex">
-                                <tr>
-                                    <td>{{rowIndex+1}}</td>
-                                    <td>{{product.nombre}}</td>
-                                    <td>{{product.direccion}}</td>
-                                    <td>{{product.telefono}}</td>
-                                    <td>
-                                        
-                                  <p-button label="Ver información" icon="pi pi-search" iconPos="right">
-                                            <a [routerLink]="'/admin/hotel/' + product.id"
-                                                class="p-button p-component"
-                                                style="text-decoration: none; color: inherit;">
-                                            </a>
-                                        </p-button>
+<p-fieldset legend="Creacion de empleados" class="mb-6">
+    <div class="grid grid-cols-1 gap-3 p-2">
+        <div class="flex">
+            <span class="font-semibold w-32">Presione el boton para crear un nuevo empleado:</span>
+    <p-button label="Nueva empleado" class="w-full" styleClass="w-full" (onClick)="this.verDialogoNuevoEmpleado()" />
+           
+        </div>
+        </div>
 
-                                    </td>
-                                </tr>
-                            </ng-template>
-                        </p-table>
-                    </div>
-                </p-panel>
+</p-fieldset>
+<div class="card mt-3">
+    <p-table [value]="listadoEmpleados" [paginator]="true" [rows]="5" [rowsPerPageOptions]="[5, 10, 20]" stripedRows
+        [tableStyle]="{'min-width': '40rem'}">
+        <ng-template #header>
+            <tr>
+                <th>No.</th>
+                <th>Cui</th>
+                <th>Nombre</th>
+                <th>Salario</th>
+                <th>Fecha de inicio de labores</th>
+                <th>Estado de usuario</th>
+                <th style="width: 5rem"></th>
+
+            </tr>
+        </ng-template>
+        <ng-template #body let-product let-rowIndex="rowIndex">
+            <tr>
+                <td>{{rowIndex+1}}</td>
+                <td>{{product.persona.cui}}</td>
+                <td>{{product.persona.nombre}}</td>
+                <td>{{product.salario}}</td>
+                <td>{{product.fecha.fecha}}</td>
+                <td class="text-center">
+                    <i class="pi" [ngClass]="{
+                                            'text-green-500 pi-check-circle': product.estado,
+                                            'text-red-500 pi-times-circle': !product.estado
+                                        }"></i>
+                </td>
+                         <td>
+                <p-button [icon]="product.estado ? 'pi pi-times' : 'pi pi-arrow-circle-up'"  severity="danger" rounded />
+            </td>
+            </tr>
+        </ng-template>
+    </p-table>
+</div>
+
+
+<!-- para nuevas habitaciones-->
+
+<div class="card flex justify-center">
+  <p-dialog 
+      header="Nuevo Empleado" 
+      [modal]="true" 
+      [(visible)]="visibleCrearEmpleado" 
+      [style]="{ width: '30rem' }"
+  >
+
+      <!-- CUI -->
+      <div class="flex items-center gap-4 mb-3">
+        <label for="cui" class="font-semibold w-32">CUI</label>
+        <input 
+          pInputText 
+          id="cui" 
+          class="flex-auto border border-gray-400 rounded px-2 py-1 focus:border-blue-500 focus:outline-none" 
+          type="number"
+          [(ngModel)]="nuevoEmpleado.cui"
+        />
+      </div>
+
+      <!-- Nombre -->
+      <div class="flex items-center gap-4 mb-3">
+        <label for="nombre" class="font-semibold w-32">Nombre</label>
+        <input 
+          pInputText 
+          id="nombre" 
+          class="flex-auto border border-gray-400 rounded px-2 py-1 focus:border-blue-500 focus:outline-none" 
+          type="text"
+          [(ngModel)]="nuevoEmpleado.nombre"
+        />
+      </div>
+
+      <!-- Fecha de nacimiento -->
+      <div class="flex items-center gap-4 mb-3">
+        <label for="fechaNacimiento" class="font-semibold w-32">Fecha Nacimiento</label>
+        <input 
+          pInputText 
+          id="fechaNacimiento" 
+          class="flex-auto border border-gray-400 rounded px-2 py-1 focus:border-blue-500 focus:outline-none" 
+          type="date"
+          [(ngModel)]="nuevoEmpleado.fechaNacimiento"
+        />
+      </div>
+
+      <!-- Dirección -->
+      <div class="flex items-center gap-4 mb-3">
+        <label for="direccion" class="font-semibold w-32">Dirección</label>
+        <input 
+          pInputText 
+          id="direccion" 
+          class="flex-auto border border-gray-400 rounded px-2 py-1 focus:border-blue-500 focus:outline-none" 
+          type="text"
+          [(ngModel)]="nuevoEmpleado.direccion"
+        />
+      </div>
+
+      <!-- Teléfono -->
+      <div class="flex items-center gap-4 mb-3">
+        <label for="telefono" class="font-semibold w-32">Teléfono</label>
+        <input 
+          pInputText 
+          id="telefono" 
+          class="flex-auto border border-gray-400 rounded px-2 py-1 focus:border-blue-500 focus:outline-none" 
+          type="text"
+          [(ngModel)]="nuevoEmpleado.telefono"
+        />
+      </div>
+
+      <!-- Correo -->
+      <div class="flex items-center gap-4 mb-3">
+        <label for="correo" class="font-semibold w-32">Correo</label>
+        <input 
+          pInputText 
+          id="correo" 
+          class="flex-auto border border-gray-400 rounded px-2 py-1 focus:border-blue-500 focus:outline-none" 
+          type="email"
+          [(ngModel)]="nuevoEmpleado.correo"
+        />
+      </div>
+
+   
+      <!-- Salario -->
+      <div class="flex items-center gap-4 mb-3">
+        <label for="salario" class="font-semibold w-32">Salario</label>
+        <input 
+          pInputText 
+          id="salario" 
+          class="flex-auto border border-gray-400 rounded px-2 py-1 focus:border-blue-500 focus:outline-none" 
+          type="number"
+          step="0.01"
+          [(ngModel)]="nuevoEmpleado.salario"
+        />
+      </div>
+
+      <!-- Fecha de ingreso -->
+      <div class="flex items-center gap-4 mb-3">
+        <label for="fecha" class="font-semibold w-32">Fecha</label>
+        <input 
+          pInputText 
+          id="fecha" 
+          class="flex-auto border border-gray-400 rounded px-2 py-1 focus:border-blue-500 focus:outline-none" 
+          type="date"
+          [(ngModel)]="nuevoEmpleado.fecha"
+        />
+      </div>
+
+      <!-- Username -->
+      <div class="flex items-center gap-4 mb-3">
+        <label for="username" class="font-semibold w-32">Usuario</label>
+        <input 
+          pInputText 
+          id="username" 
+          class="flex-auto border border-gray-400 rounded px-2 py-1 focus:border-blue-500 focus:outline-none" 
+          type="text"
+          [(ngModel)]="nuevoEmpleado.username"
+        />
+      </div>
+
+      <!-- Password -->
+      <div class="flex items-center gap-4 mb-4">
+        <label for="password" class="font-semibold w-32">Contraseña</label>
+        <input 
+          pPassword 
+          id="password" 
+          class="flex-auto border border-gray-400 rounded px-2 py-1 focus:border-blue-500 focus:outline-none" 
+          [(ngModel)]="nuevoEmpleado.password"
+        />
+      </div>
+
+      <!-- Botones -->
+      <div class="flex justify-end gap-2 mt-4">
+        <p-button 
+          label="Cancelar" 
+          severity="secondary" 
+          (click)="visibleCrearEmpleado = false" 
+        />
+        <p-button 
+          label="Guardar" 
+          (click)="guardarEmpleado()" 
+        />
+      </div>
+
+  </p-dialog>
+</div>
+
