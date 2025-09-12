@@ -38,6 +38,7 @@ export class RegistroComponent {
      direccion:this.direccion,
      telefono:this.telefono,
      correo:this.correo,
+     tipoUsuario:''
     }
 
     this.usuarioServicio.registrarUsuario(nuevoUsuarioDTO).subscribe(

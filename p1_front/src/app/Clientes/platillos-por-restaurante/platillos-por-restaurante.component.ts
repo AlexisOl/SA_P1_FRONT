@@ -19,7 +19,7 @@ import { SplitterModule } from 'primeng/splitter';
 import { HeaderComponent } from '../../utils/header/header.component';
 import { CalificacionesRestauranteServicioService } from '../../services/restaurante/calificaciones-restaurante-servicio.service';
 import { PlatillosServicioService } from '../../services/restaurante/platillos-servicio.service';
-import { Platillo } from '../../Models/Restaurantes';
+import { calificacionPlatillo, Platillo } from '../../Models/Restaurantes';
 import { AlertaServicioService } from '../../services/utils/alerta-servicio.service';
 import { TagModule } from 'primeng/tag';
 import { TableModule } from 'primeng/table';
@@ -28,12 +28,13 @@ import { CarritoService } from '../../services/restaurante/carrito.service';
 import { DetallefacturacionRestauranteDTO, ListadoElementosDTO } from '../../Models/Facturacion';
 import { AuthService } from '../../services/usuario/auth.service';
 import { FacturacionRestauranteService } from '../../services/facturacion/facturacion-restaurante.service';
+import { TextareaModule } from 'primeng/textarea';
 @Component({
   selector: 'app-platillos-por-restaurante',
   imports: [
     Card, HeaderComponent, Button, FormsModule, InputNumber,
     SplitterModule, Rating, FieldsetModule, SelectModule, TagModule
-    , ScrollPanelModule, CardModule, ButtonModule,
+    , ScrollPanelModule, CardModule, ButtonModule,TextareaModule,
     CurrencyPipe, AccordionModule, AvatarModule, BadgeModule,
     PanelModule, PaginatorModule, DialogModule, FileUploadModule, HeaderComponent, RatingModule,
     TableModule
@@ -51,6 +52,7 @@ export class PlatillosPorRestauranteComponent implements OnInit {
   carrito = inject(CarritoService)
   AuthServicio = inject(AuthService)
   facturaRestauranteServicio = inject(FacturacionRestauranteService)
+  puntuacionPlatillosServicio = inject(CalificacionesRestauranteServicioService)
 
   visible: boolean = false;
   visibleNuevoPlatillo: boolean = false;
@@ -76,6 +78,9 @@ export class PlatillosPorRestauranteComponent implements OnInit {
     { label: 'Antojito', value: 'ANTOJITO' },
   ];
 
+ //comentarios
+  visibleComentario:boolean = false 
+  ListadoCalificaciones!: calificacionPlatillo[]
 
   constructor(private route: ActivatedRoute) { }
   ngOnInit(): void {
@@ -171,10 +176,12 @@ export class PlatillosPorRestauranteComponent implements OnInit {
 
     this.facturaRestauranteServicio.crearFacturacion(nuevaFactura).subscribe(
                   (next) => {
+        this.visibleComentario=true
+        this.carrito.limpiarCarritoComentarios()
         this.carrito.limpiarCarrito()
-             this.AlertaServicio.generacionAlerta(
-        'Éxito', 'La compra fue registrada correctamente.', 'success'
-        )
+        //      this.AlertaServicio.generacionAlerta(
+        // 'Éxito', 'La compra fue registrada correctamente.', 'success'
+        // )
         
       }, (error) => {
                 this.carrito.limpiarCarrito()
@@ -190,5 +197,39 @@ export class PlatillosPorRestauranteComponent implements OnInit {
 
   }
 
+
+  guardarComentarios(){
+    console.log(this.carrito.getCarritoComentarios());
+      
+
+    this.puntuacionPlatillosServicio.crearComentario(this.carrito.GenerarListadoComentarios()).subscribe(
+                        (next) => {
+        this.visibleComentario=false
+         this.carrito.limpiarCarritoComentarios()
+             this.AlertaServicio.generacionAlerta(
+        'Éxito', 'La compra fue registrada correctamente.', 'success'
+        )
+        
+      }, (error) => {
+    this.visibleComentario=false
+         this.carrito.limpiarCarritoComentarios()
+
+           this.AlertaServicio.generacionAlerta(
+          'Error', 'Hubo un problema al registrar su comentario.', 'error'
+        )
+
+      }
+    )
+       
+
+
+    
+  }
+
+  cerrarTodo(){
+    this.visibleComentario = false
+        this.carrito.limpiarCarritoComentarios()
+
+  }
 
 }

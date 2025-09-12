@@ -6,6 +6,7 @@ import { Injectable, signal } from '@angular/core';
 export class CarritoService {
 
   public carrito = signal<any[]>([])
+  public carritoComentarios = signal<any[]>([])
   constructor() { }
 
   agregarPlatillo(platillo: any, cantidad: Number) {
@@ -22,7 +23,19 @@ export class CarritoService {
   }
 
   limpiarCarrito() {
+    this.carritoComentarios.set(this.carrito())
+
     this.carrito.set([]);
+  }
+
+    limpiarCarritoComentarios() {
+
+    this.carritoComentarios.set([]);
+  }
+
+
+  getCarritoComentarios(){
+    return this.carritoComentarios()
   }
 
   GenerarListadoCompras() {
@@ -30,6 +43,17 @@ export class CarritoService {
       (valores ) => ({
             idPlatillo:valores.id,
     cantidad:valores.cantidad
+      })
+    )
+  }
+
+
+    GenerarListadoComentarios() {
+    return this.carritoComentarios().map(
+      (valores ) => ({
+            platillo:valores.id,
+    puntuacion:valores.puntuacion,
+    comentario:valores.comentario,
       })
     )
   }

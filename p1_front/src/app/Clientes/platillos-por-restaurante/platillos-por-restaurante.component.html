@@ -212,3 +212,50 @@
 
   </p-dialog>
 </div>
+
+
+
+<!-- para la generacion de comentarios RESTAURANTE-->
+
+<div class="card flex justify-center">
+  <p-dialog 
+      header="Comentenos su experiencia" 
+      [modal]="true" 
+      [(visible)]="visibleComentario" 
+      [style]="{ width: '30rem' }"
+  >
+
+      <!-- calificacion -->
+       @for (item of this.carrito.getCarritoComentarios(); track $index) {
+
+        <div class="card flex justify-center">
+      <label for="nombre" class="font-semibold w-32">{{item.nombre}}</label>
+
+            <p-rating  [(ngModel)]=item.puntuacion/>
+      </div>
+
+      <div class="flex items-center gap-4 mb-3">
+        <label for="Nombre" class="font-semibold w-32">Comentario</label>
+<textarea rows="5"cols="30" pTextarea [autoResize]="true"
+[(ngModel)]=item.comentario
+     ></textarea>
+      </div>
+
+       }
+
+
+      <!-- Botones -->
+      <div class="flex justify-end gap-2 mt-4">
+        <p-button 
+          label="Cancelar" 
+          severity="secondary" 
+          (click)="cerrarTodo()" 
+        />
+        <p-button 
+          label="Guardar" 
+          (click)="guardarComentarios()" 
+        />
+      </div>
+
+  </p-dialog>
+</div>
