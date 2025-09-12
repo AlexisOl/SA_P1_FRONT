@@ -22,10 +22,11 @@ import { TreeTableModule } from 'primeng/treetable';
 import { TreeNode } from 'primeng/api';
 import { forkJoin } from 'rxjs';
 import { TableModule } from 'primeng/table';
+import { HeaderAdminEmpleadoComponent } from "../../utils/header-admin-empleado/header-admin-empleado.component";
 @Component({
   selector: 'app-compra-comida',
   imports: [HeaderComponent, DataView, ButtonModule, CommonModule, DialogModule, FormsModule, TableModule,
-    ConfirmPopupModule, ToastModule, TextareaModule, RatingModule, TreeTableModule],
+    ConfirmPopupModule, ToastModule, TextareaModule, RatingModule, TreeTableModule, HeaderAdminEmpleadoComponent],
   templateUrl: './compra-comida.component.html',
   styleUrl: './compra-comida.component.css',
   providers: []

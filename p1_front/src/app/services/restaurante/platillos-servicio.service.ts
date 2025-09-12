@@ -22,6 +22,12 @@ export class PlatillosServicioService {
     )
   }
 
+    public listarPlatillosGloables():Observable<Platillo[]> {
+    return  this.http.get<Platillo[]>(
+      this.URL
+    )
+  }
+
    public crearPlatillos(platillos: Platillo):Observable<Platillo> {
     return  this.http.post<Platillo>(
       this.URL, platillos

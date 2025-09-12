@@ -27,14 +27,14 @@ import { AuthService } from '../../services/usuario/auth.service';
 import { ReservaServicioService } from '../../services/hotel/reserva-servicio.service';
 import { AlertaServicioService } from '../../services/utils/alerta-servicio.service';
 import { CalendarEvent, CalendarModule, CalendarView } from 'angular-calendar';
+import { HeaderAdminEmpleadoComponent } from "../../utils/header-admin-empleado/header-admin-empleado.component";
 @Component({
   selector: 'app-habitaciones-por-hotel',
-  imports: [Card, HeaderComponent, Button, FormsModule,DropdownModule,
-    SplitterModule, Rating, FieldsetModule, SelectModule
-    , ScrollPanelModule, CardModule, ButtonModule,CalendarModule,CommonModule,
+  imports: [Card, HeaderComponent, Button, FormsModule, DropdownModule,
+    SplitterModule, Rating, FieldsetModule, SelectModule,
+    ScrollPanelModule, CardModule, ButtonModule, CalendarModule, CommonModule,
     CurrencyPipe, AccordionModule, AvatarModule, BadgeModule,
-    PanelModule, PaginatorModule, DialogModule, FileUploadModule, HeaderComponent,  RatingModule
-  ],
+    PanelModule, PaginatorModule, DialogModule, FileUploadModule, HeaderComponent, RatingModule, HeaderAdminEmpleadoComponent],
   templateUrl: './habitaciones-por-hotel.component.html',
   styleUrl: './habitaciones-por-hotel.component.css'
 })

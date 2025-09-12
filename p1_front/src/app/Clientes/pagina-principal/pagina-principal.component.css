@@ -1,0 +1,9 @@
+.custom-carousel .p-carousel-item {
+  display: flex;
+  justify-content: center;
+}
+
+.custom-carousel .p-carousel-item-content {
+  width: 100%;
+  max-width: 300px;
+}

@@ -29,16 +29,18 @@ import { DetallefacturacionRestauranteDTO, ListadoElementosDTO } from '../../Mod
 import { AuthService } from '../../services/usuario/auth.service';
 import { FacturacionRestauranteService } from '../../services/facturacion/facturacion-restaurante.service';
 import { TextareaModule } from 'primeng/textarea';
+import { HeaderAdminEmpleadoComponent } from "../../utils/header-admin-empleado/header-admin-empleado.component";
 @Component({
   selector: 'app-platillos-por-restaurante',
   imports: [
     Card, HeaderComponent, Button, FormsModule, InputNumber,
-    SplitterModule, Rating, FieldsetModule, SelectModule, TagModule
-    , ScrollPanelModule, CardModule, ButtonModule,TextareaModule,
+    SplitterModule, Rating, FieldsetModule, SelectModule, TagModule,
+    ScrollPanelModule, CardModule, ButtonModule, TextareaModule,
     CurrencyPipe, AccordionModule, AvatarModule, BadgeModule,
     PanelModule, PaginatorModule, DialogModule, FileUploadModule, HeaderComponent, RatingModule,
-    TableModule
-  ],
+    TableModule,
+    HeaderAdminEmpleadoComponent
+],
   templateUrl: './platillos-por-restaurante.component.html',
   styleUrl: './platillos-por-restaurante.component.css'
 })
@@ -53,6 +55,7 @@ export class PlatillosPorRestauranteComponent implements OnInit {
   AuthServicio = inject(AuthService)
   facturaRestauranteServicio = inject(FacturacionRestauranteService)
   puntuacionPlatillosServicio = inject(CalificacionesRestauranteServicioService)
+  authServicio = inject(AuthService)
 
   visible: boolean = false;
   visibleNuevoPlatillo: boolean = false;

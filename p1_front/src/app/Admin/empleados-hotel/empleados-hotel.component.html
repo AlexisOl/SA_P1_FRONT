@@ -1,4 +1,10 @@
+@if(this.authServicio.getTipoEmpleadoNombre()==='ADMINISTRADOR'
+||this.authServicio.getTipoEmpleadoNombre()==='EMPLEADO') {
+<app-header-admin-empleado />
+} @else {
 <app-header />
+
+}
 <p-fieldset legend="Información general de hotel" class="mb-6">
   <div class="grid grid-cols-1 gap-3 p-2">
     <div class="flex">
@@ -13,6 +19,17 @@
       <span class="font-semibold w-32">Dirección:</span>
       <span>{{ this.hotelEspecifico.direccion }}</span>
     </div>
+    <div class="flex">
+      <span class="font-semibold w-32">Ver saldos de la empresa:</span>
+      <span>
+        <p-button label="Ver información" icon="pi pi-search" iconPos="right">
+          <a [routerLink]="'/admin/reportes/hotel/' + this.hotelEspecifico.id" class="p-button p-component"
+            style="text-decoration: none; color: inherit;">
+          </a>
+        </p-button>
+      </span>
+    </div>
+
   </div>
 </p-fieldset>
 
@@ -64,34 +81,7 @@
 
 
 
-<div class="card mt-3">
 
-  <div class="grid grid-cols-1 gap-3 p-2">
-    <div class="flex">
-      <span class="font-semibold w-32">Saldos de la empresa:</span>
-    </div>
-  </div>
-  <p-table [value]="saldoEmpresa" [paginator]="true" [rows]="5" [rowsPerPageOptions]="[5, 10, 20]" stripedRows
-    [tableStyle]="{'min-width': '40rem'}">
-    <ng-template #header>
-      <tr>
-        <th>No.</th>
-        <th>Anio</th>
-        <th>No. Semana</th>
-        <th>Saldo</th>
-
-      </tr>
-    </ng-template>
-    <ng-template #body let-product let-rowIndex="rowIndex">
-      <tr>
-        <td>{{rowIndex+1}}</td>
-        <td>{{product.anio}}</td>
-        <td>{{product.semana}}</td>
-        <td>{{product.acumulado}}</td>
-      </tr>
-    </ng-template>
-  </p-table>
-</div>
 
 
 <!-- para nuevas habitaciones-->

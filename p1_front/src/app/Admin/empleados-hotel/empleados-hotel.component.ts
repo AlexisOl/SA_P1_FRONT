@@ -16,13 +16,14 @@ import { FieldsetModule } from 'primeng/fieldset';
 import { IconFieldModule } from 'primeng/iconfield';
 import { InputIconModule } from 'primeng/inputicon';
 import { FacturacionHotelService } from '../../services/facturacion/facturacion-hotel.service';
+import { HeaderAdminEmpleadoComponent } from "../../utils/header-admin-empleado/header-admin-empleado.component";
+import { AuthService } from '../../services/usuario/auth.service';
 
 @Component({
   selector: 'app-empleados-hotel',
-  imports: [HeaderComponent, PanelModule, TableModule, ButtonModule, 
+  imports: [HeaderComponent, PanelModule, TableModule, ButtonModule,
     PanelModule, TableModule, ButtonModule, CommonModule, FieldsetModule,
-    IconFieldModule, InputIconModule, DialogModule, FormsModule
-  ],
+    IconFieldModule, InputIconModule, DialogModule, FormsModule, HeaderAdminEmpleadoComponent, RouterLink],
   templateUrl: './empleados-hotel.component.html',
   styleUrl: './empleados-hotel.component.css'
 })
@@ -32,6 +33,8 @@ export class EmpleadosHotelComponent implements OnInit {
   empleadoHotel = inject(EmpleadoHotelService)
   hotelServicio = inject(HotelServicioService)
   facturacionHotelServicio = inject(FacturacionHotelService)
+    authServicio = inject(AuthService)
+  
   visibleCrearEmpleado: boolean = false
   hotelEspecifico!: hotel
   listadoEmpleados: empleadoHotel[] = []

@@ -1,7 +1,24 @@
+        @if(this.authServicio.getTipoEmpleadoNombre()==='ADMINISTRADOR' ||this.authServicio.getTipoEmpleadoNombre()==='EMPLEADO') {
+          <app-header-admin-empleado/>
+        } @else {
 <app-header />
 
+        }
 
+@if(this.authServicio.getTipoEmpleadoNombre()==='ADMINISTRADOR'
+||this.authServicio.getTipoEmpleadoNombre()==='EMPLEADO') {
 
+<div class="card flex justify-center mb-2">
+  <p-fieldset legend="Gestion de Hoteles">
+    <p class="m-0">
+      Para crear un nuevo hotel haga click en el boton
+    </p>
+    <p-button label="Nuevo hotel" class="w-full" styleClass="w-full"
+      (onClick)="this.verDialogoNuevoHotel()" />
+  </p-fieldset>
+</div>
+
+}
   <!-- Panel LISTADO -->
     <div class="h-full w-full mb-2">
         <div
@@ -56,3 +73,44 @@
     </div>
 
 
+
+    <!-- para nuevas habitaciones-->
+
+<div class="card flex justify-center">
+  <p-dialog header="Nueva Habitación" [modal]="true" [(visible)]="visibleHotel" [style]="{ width: '30rem' }">
+
+    <!-- Número de habitación -->
+    <div class="flex items-center gap-4 mb-3">
+      <label for="nombre" class="font-semibold w-32">Nombre del hotel</label>
+      <input pInputText id="nombre"
+        class="flex-auto border border-gray-400 rounded px-2 py-1 focus:border-blue-500 focus:outline-none" type="text"
+        [(ngModel)]=this.nombre />
+    </div>
+
+    <!-- Cantidad de camas -->
+    <div class="flex items-center gap-4 mb-3">
+      <label for="telefono" class="font-semibold w-32">Telefono</label>
+      <input pInputText id="telefono"
+        class="flex-auto border border-gray-400 rounded px-2 py-1 focus:border-blue-500 focus:outline-none" type="text"
+        [(ngModel)]=this.telefono />
+    </div>
+
+    <!-- ID del hotel -->
+    <div class="flex items-center gap-4 mb-3">
+      <label for="direccion" class="font-semibold w-32">Direccion</label>
+      <input pInputText id="direccion"
+        class="flex-auto border border-gray-400 rounded px-2 py-1 focus:border-blue-500 focus:outline-none" type="text"
+        [(ngModel)]=this.direccion />
+    </div>
+
+
+
+
+    <!-- Botones -->
+    <div class="flex justify-end gap-2 mt-4">
+      <p-button label="Cancelar" severity="secondary" (click)="visibleHotel = false" />
+      <p-button label="Guardar" (click)="guardarHotel()" />
+    </div>
+
+  </p-dialog>
+</div>

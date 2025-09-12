@@ -1,4 +1,9 @@
+        @if(this.authServicio.getTipoEmpleadoNombre()==='ADMINISTRADOR' ||this.authServicio.getTipoEmpleadoNombre()==='EMPLEADO') {
+          <app-header-admin-empleado/>
+        } @else {
 <app-header />
+
+        }
 <p-fieldset legend="Información general de restaurante" class="mb-6">
     <div class="grid grid-cols-1 gap-3 p-2">
         <div class="flex">

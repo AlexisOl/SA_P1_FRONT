@@ -1,26 +1,26 @@
 import { Component, inject, OnInit } from '@angular/core';
-import { Button } from 'primeng/button';
 import { MegaMenuItem, MenuItem } from 'primeng/api';
-import { BadgeModule } from 'primeng/badge';
-import { AvatarModule } from 'primeng/avatar';
-import { InputTextModule } from 'primeng/inputtext';
-import { CommonModule } from '@angular/common';
-import { Ripple } from 'primeng/ripple';
-import { MenubarModule } from 'primeng/menubar';
-import { MegaMenuModule } from 'primeng/megamenu';
-import { RouterLink } from '@angular/router'
-
-import { SplitButtonModule } from 'primeng/splitbutton';
 import { AuthService } from '../../services/usuario/auth.service';
+import { CommonModule } from '@angular/common';
+import { RouterLink } from '@angular/router';
+import { AvatarModule } from 'primeng/avatar';
+import { BadgeModule } from 'primeng/badge';
+import { Button } from 'primeng/button';
+import { InputTextModule } from 'primeng/inputtext';
+import { MegaMenuModule } from 'primeng/megamenu';
+import { MenubarModule } from 'primeng/menubar';
+import { Ripple } from 'primeng/ripple';
+import { SplitButtonModule } from 'primeng/splitbutton';
+
 @Component({
-    selector: 'app-header',
-    imports: [Button,
+  selector: 'app-header-admin-empleado',
+  imports: [Button,
         MenubarModule, BadgeModule, AvatarModule, InputTextModule, Ripple, CommonModule,
         MegaMenuModule, RouterLink, SplitButtonModule],
-    templateUrl: './header.component.html',
-    styleUrl: './header.component.css'
+  templateUrl: './header-admin-empleado.component.html',
+  styleUrl: './header-admin-empleado.component.css'
 })
-export class HeaderComponent implements OnInit {
+export class HeaderAdminEmpleadoComponent implements OnInit {
     items: MegaMenuItem[] | undefined;
     // para el split
 
@@ -42,7 +42,6 @@ export class HeaderComponent implements OnInit {
         this.opcionesUsuarioMenu = [
 
 
-            { label: 'Ver perfil', url: 'https://angular.dev' },
             {
                 label: 'Cerrar sesion',
                 command: () => {
@@ -55,11 +54,17 @@ export class HeaderComponent implements OnInit {
 
     ngOnInit() {
         this.items = [
-            {
+                 {
                 label: 'General',
                 root: true,
-                direccion:'/hotel_restaurante/',
+                direccion:'/admin/',
 
+
+            },
+            {
+                label: 'Informacion Empresarial',
+                root: true,
+                direccion: '/admin/informacionEmpresarial'
 
             },
             {
@@ -98,12 +103,16 @@ export class HeaderComponent implements OnInit {
 
             },
 
+            {
+                label: 'Facturacion',
+                root: true,
+                direccion: ''
+
+            }
         ];
     }
 
 
 
 
-
-}
-
+  }

@@ -1,5 +1,9 @@
+        @if(this.authServicio.getTipoEmpleadoNombre()==='ADMINISTRADOR' ||this.authServicio.getTipoEmpleadoNombre()==='EMPLEADO') {
+          <app-header-admin-empleado/>
+        } @else {
 <app-header />
 
+        }
 <div class="flex justify-center mt-6">
     <div class="w-11/12 ">
         <p-splitter  [style]="{ height: '600px' }" class="mb-3">
@@ -84,6 +88,7 @@
                 </p-panel>
             </ng-template>
         </p-splitter>
+        @if(this.authServicio.getTipoEmpleadoNombre()==='ADMINISTRADOR') {
 <p-panel header="Reporte de hoteles" class="mt-4">
   <div class="grid gap-4 m-4">
     <!-- Card 1 -->
@@ -195,5 +200,7 @@
     </div>
   </div>
 </p-panel>
+        }
+
     </div>
 </div>

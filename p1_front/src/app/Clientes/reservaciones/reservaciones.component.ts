@@ -25,12 +25,12 @@ import { ConfirmationService, MessageService } from 'primeng/api';
 import { calificacion } from '../../Models/Hotel';
 import { CalificacionServicioService } from '../../services/hotel/calificacion-servicio.service';
 import { AlertaServicioService } from '../../services/utils/alerta-servicio.service';
+import { HeaderAdminEmpleadoComponent } from "../../utils/header-admin-empleado/header-admin-empleado.component";
 
 @Component({
   selector: 'app-reservaciones',
   imports: [HeaderComponent, DataView, ButtonModule, Tag, CommonModule, DialogModule, FormsModule,
-    ConfirmPopupModule, ConfirmDialog, ToastModule, TextareaModule, RatingModule
-  ],
+    ConfirmPopupModule, ConfirmDialog, ToastModule, TextareaModule, RatingModule, HeaderAdminEmpleadoComponent],
   templateUrl: './reservaciones.component.html',
   styleUrl: './reservaciones.component.css',
   providers: [ConfirmationService, MessageService]

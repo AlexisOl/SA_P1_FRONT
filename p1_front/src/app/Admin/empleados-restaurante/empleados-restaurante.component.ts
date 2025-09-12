@@ -15,11 +15,12 @@ import { RestauranteServicioService } from '../../services/restaurante/restauran
 import { DialogModule } from 'primeng/dialog';
 import { FormsModule } from '@angular/forms';
 import { AlertaServicioService } from '../../services/utils/alerta-servicio.service';
+import { HeaderAdminEmpleadoComponent } from "../../utils/header-admin-empleado/header-admin-empleado.component";
+import { AuthService } from '../../services/usuario/auth.service';
 @Component({
   selector: 'app-empleados-restaurante',
   imports: [HeaderComponent, PanelModule, TableModule, ButtonModule, CommonModule, FieldsetModule,
-    IconFieldModule, InputIconModule, DialogModule, FormsModule
-  ],
+    IconFieldModule, InputIconModule, DialogModule, FormsModule, HeaderAdminEmpleadoComponent],
   templateUrl: './empleados-restaurante.component.html',
   styleUrl: './empleados-restaurante.component.css'
 })
@@ -32,6 +33,8 @@ export class EmpleadosRestauranteComponent implements OnInit{
   empleadoRestaurante= inject(EmpleadoRestauranteService)
   restauranteServicio= inject(RestauranteServicioService)
   AlertaServicio= inject(AlertaServicioService)
+    authServicio = inject(AuthService)
+  
 
 
   // para crear

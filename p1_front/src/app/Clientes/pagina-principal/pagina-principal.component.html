@@ -1,2 +1,63 @@
-<app-header/>
-<p>pagina-principal works!</p>
+@if(this.authServicio.getTipoEmpleadoNombre()==='ADMINISTRADOR' || this.authServicio.getTipoEmpleadoNombre()==='EMPLEADO') {
+  <app-header-admin-empleado/>
+} @else {
+  <app-header />
+}
+<div class="p-4 mb-5 bg-blue-100 border-round-lg shadow-md text-center">
+  <h1 class="text-2xl font-bold text-blue-800">¡Bienvenido!</h1>
+  <p class="text-gray-700">
+    Explora las mejores habitaciones y platillos disponibles para ti.
+  </p>
+</div>
+<p-panel header="Página Principal">
+  <!-- Carrusel de Habitaciones -->
+  <div class="mb-5">
+    <h2 class="text-xl font-bold mb-3">Habitaciones</h2>
+    <p-carousel 
+      [value]="ListadoHabitaciones" 
+      [numVisible]="3" 
+      [numScroll]="1"
+      [circular]="true"
+      [autoplayInterval]="3000"
+      styleClass="custom-carousel">
+
+      <ng-template pTemplate="item" let-habitacion>
+        <div class="m-3 p-4 border-round-lg shadow-md">
+          <h3 class="text-lg font-semibold mb-2">#{{ habitacion.numero_habitacion }}</h3>
+          <p class="text-sm mb-1"><b>Tipo:</b> {{ habitacion.tipoHabitacion }}</p>
+          <p class="text-sm mb-1"><b>Camas:</b> {{ habitacion.cantidad_camas }}</p>
+          <p class="text-sm mb-1"><b>Precio:</b> Q{{ habitacion.precio }}</p>
+          <p class="text-sm mb-1"><b>Hotel:</b> {{ habitacion.hotel?.nombre }}</p>
+          <p class="text-sm mb-1" *ngIf="habitacion.promedio_valoracion !== null">
+            <b>Valoración:</b> {{ habitacion.promedio_valoracion  }}
+          </p>
+        </div>
+      </ng-template>
+    </p-carousel>
+  </div>
+
+  <!-- Carrusel de Platillos -->
+  <div>
+    <h2 class="text-xl font-bold mb-3">Platillos</h2>
+    <p-carousel 
+      [value]="ListadoPlatillos" 
+      [numVisible]="3" 
+      [numScroll]="1"
+      [circular]="true"
+      [autoplayInterval]="3000"
+      styleClass="custom-carousel">
+
+      <ng-template pTemplate="item" let-platillo>
+        <div class="m-3 p-4 border-round-lg shadow-md">
+          <h3 class="text-lg font-semibold mb-2">{{ platillo.nombre }}</h3>
+          <p class="text-sm mb-1"><b>Tipo:</b> {{ platillo.tipo }}</p>
+          <p class="text-sm mb-1"><b>Precio:</b> Q{{ platillo.precio }}</p>
+          <p class="text-sm mb-1"><b>Restaurante:</b> {{ platillo.idrestaurante?.nombre }}</p>
+          <p class="text-sm mb-1" *ngIf="platillo.promedio_valoracion !== null">
+            <b>Valoración:</b> {{ platillo.promedio_valoracion }}
+          </p>
+        </div>
+      </ng-template>
+    </p-carousel>
+  </div>
+</p-panel>

@@ -44,4 +44,10 @@ export class HotelServicioService {
       this.URL+"/"+id
     )
   }
+
+    crearHotel(hotel:hotel) {
+    return this.http.post(
+      this.URL, hotel
+    )
+  }
 }

@@ -22,6 +22,11 @@ export class HabitacionServicioService {
       this.URL+"/"+id)
   }
 
+    public listarHabitacionesGlobales( ):Observable<habitacion[]> {
+    return this.http.get<habitacion[]>(
+      this.URL)
+  }
+
 
   crearHabitacion(habitacion:habitacion) {
     return this.http.post(

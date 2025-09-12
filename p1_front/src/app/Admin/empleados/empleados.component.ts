@@ -12,12 +12,12 @@ import { DatePipe } from '@angular/common';
 import * as pdfMake from "pdfmake/build/pdfmake";
 import * as pdfFonts from 'pdfmake/build/vfs_fonts';
 import { AuthService } from '../../services/usuario/auth.service';
+import { HeaderAdminEmpleadoComponent } from "../../utils/header-admin-empleado/header-admin-empleado.component";
 
 (<any>pdfMake).addVirtualFileSystem(pdfFonts);
 @Component({
   selector: 'app-empleados',
-  imports: [SplitterModule, HeaderComponent, PanelModule, TableModule, ButtonModule, RouterLink, DatePipe,
-  ],
+  imports: [SplitterModule, HeaderComponent, PanelModule, TableModule, ButtonModule, RouterLink, DatePipe, HeaderAdminEmpleadoComponent],
   templateUrl: './empleados.component.html',
   styleUrl: './empleados.component.css'
 })
@@ -38,6 +38,7 @@ export class EmpleadosComponent implements OnInit{
   habitacionServicio = inject(HabitacionServicioService)
   RestauranteServicio = inject(RestauranteServicioService)
   authServicio = inject(AuthService)
+  
 
 
   ngOnInit(): void {

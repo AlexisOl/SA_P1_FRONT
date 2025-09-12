@@ -8,11 +8,12 @@ import * as pdfMake from "pdfmake/build/pdfmake";
 import * as pdfFonts from 'pdfmake/build/vfs_fonts';
 import { AuthService } from '../../services/usuario/auth.service';
 import { CommonModule, DatePipe } from '@angular/common';
+import { HeaderAdminEmpleadoComponent } from "../../utils/header-admin-empleado/header-admin-empleado.component";
 
 (<any>pdfMake).addVirtualFileSystem(pdfFonts);
 @Component({
   selector: 'app-reportes',
-  imports: [HeaderComponent, TableModule, ButtonModule, DatePipe, CommonModule],
+  imports: [HeaderComponent, TableModule, ButtonModule, DatePipe, CommonModule, HeaderAdminEmpleadoComponent],
   templateUrl: './reportes.component.html',
   styleUrl: './reportes.component.css'
 })

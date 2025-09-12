@@ -15,14 +15,15 @@ import { FieldsetModule } from 'primeng/fieldset';
 import { FormsModule } from '@angular/forms';
 import { restaurantes } from '../../Models/Restaurantes';
 import { AlertaServicioService } from '../../services/utils/alerta-servicio.service';
+import { HeaderAdminEmpleadoComponent } from "../../utils/header-admin-empleado/header-admin-empleado.component";
+import { AuthService } from '../../services/usuario/auth.service';
 
 @Component({
   selector: 'app-restaurante',
-  imports: [HeaderComponent, 
-    SplitterModule, FieldsetModule
-     , ScrollPanelModule, CardModule, ButtonModule, 
-     PanelModule, PaginatorModule, DialogModule, FileUploadModule,  RouterLink, FormsModule
-  ],
+  imports: [HeaderComponent,
+    SplitterModule, FieldsetModule,
+    ScrollPanelModule, CardModule, ButtonModule,
+    PanelModule, PaginatorModule, DialogModule, FileUploadModule, RouterLink, FormsModule, HeaderAdminEmpleadoComponent],
   templateUrl: './restaurante.component.html',
   styleUrl: './restaurante.component.css'
 })
@@ -46,6 +47,7 @@ export class RestauranteComponent implements OnInit {
   RestauranteServicio = inject(RestauranteServicioService)
   AlertaServicio = inject(AlertaServicioService)
 
+  authServicio = inject(AuthService)
 
   updatePaginatedItems() {
     this.paginatedItems = this.items.slice(this.first, this.first + this.rows);

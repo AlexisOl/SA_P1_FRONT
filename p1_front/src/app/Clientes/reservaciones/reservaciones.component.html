@@ -1,4 +1,9 @@
-<app-header/>
+        @if(this.authServicio.getTipoEmpleadoNombre()==='ADMINISTRADOR' ||this.authServicio.getTipoEmpleadoNombre()==='EMPLEADO') {
+          <app-header-admin-empleado/>
+        } @else {
+<app-header />
+
+        }
 
 <div class="card">
     <p-dataview #dv [value]="valores">
