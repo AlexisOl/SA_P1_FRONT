@@ -28,4 +28,15 @@ export class HabitacionServicioService {
       this.URL, habitacion
     )
   }
+
+    public listarHabitacionMejorPuntuada( ):Observable<habitacion[]> {
+    return this.http.get<habitacion[]>(
+      this.URL+"/habitacionMejorPuntuada")
+  }
+
+      public listarHabitacionMayorAlojamiento( ):Observable<habitacion[]> {
+    return this.http.get<habitacion[]>(
+      this.URL+"/habitacionConMasAlojamientos")
+  }
+
 }

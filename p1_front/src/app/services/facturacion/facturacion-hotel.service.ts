@@ -25,7 +25,14 @@ export class FacturacionHotelService {
       this.URL+"/"+id
     )
   }
+  obtenerSaldosHotel(id: Number) {
+    return this.http.get(
+      this.URL+"/generarGanancias/"+id
+    )
+  }
 
+
+  
 
 
 }

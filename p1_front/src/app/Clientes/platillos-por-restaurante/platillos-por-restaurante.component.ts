@@ -110,13 +110,13 @@ export class PlatillosPorRestauranteComponent implements OnInit {
     this.visible = true;
     this.listadoComentarios = []
 
-    // this.comentariosServicio.listarCalificacionHabitacion(id).subscribe(
-    //   (next: any) => {
-    //     console.log(next);
-    //     this.listadoComentarios = next
+    this.puntuacionPlatillosServicio.listarCalificacionPLatillo(id).subscribe(
+      (next: any) => {
+        console.log(next);
+        this.listadoComentarios = next
 
-    //   }
-    // )
+      }
+    )
   }
 
 
@@ -132,6 +132,7 @@ export class PlatillosPorRestauranteComponent implements OnInit {
       precio: this.precio,
       tipo: this.tipoPlatillo.value,
       idrestaurante: (this.idRestaurante)
+      
     }
 
     console.log(nuevoPlatillo);

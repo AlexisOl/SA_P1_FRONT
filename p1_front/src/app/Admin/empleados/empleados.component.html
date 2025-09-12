@@ -2,7 +2,7 @@
 
 <div class="flex justify-center mt-6">
     <div class="w-11/12 ">
-        <p-splitter [style]="{ height: '600px' }" class="mb-3">
+        <p-splitter  [style]="{ height: '600px' }" class="mb-3">
             <ng-template #panel>
                 <p-panel header="Listado de hoteles">
                     <p class="m-3">
@@ -27,10 +27,9 @@
                                     <td>{{product.direccion}}</td>
                                     <td>{{product.telefono}}</td>
                                     <td>
-                                        
-                                  <p-button label="Ver información" icon="pi pi-search" iconPos="right">
-                                            <a [routerLink]="'/admin/hotel/' + product.id"
-                                                class="p-button p-component"
+
+                                        <p-button label="Ver información" icon="pi pi-search" iconPos="right">
+                                            <a [routerLink]="'/admin/hotel/' + product.id" class="p-button p-component"
                                                 style="text-decoration: none; color: inherit;">
                                             </a>
                                         </p-button>
@@ -41,6 +40,8 @@
                         </p-table>
                     </div>
                 </p-panel>
+
+          
             </ng-template>
 
             <ng-template #panel>
@@ -83,5 +84,116 @@
                 </p-panel>
             </ng-template>
         </p-splitter>
+<p-panel header="Reporte de hoteles" class="mt-4">
+  <div class="grid gap-4 m-4">
+    <!-- Card 1 -->
+ <div class="card p-4 shadow-md rounded-lg mb-6">
+  <h3 class="text-lg font-semibold mb-3">Habitación mejor puntuada</h3>
+
+  <div class="grid grid-cols-2 gap-4">
+    <div>
+      <p><strong>Número de Habitación:</strong> {{ habitacionMejorPuntuada.habitacion.numero_habitacion }}</p>
+      <p><strong>Tipo:</strong> {{ habitacionMejorPuntuada.habitacion.tipoHabitacion }}</p>
+      <p><strong>Precio:</strong> Q{{ habitacionMejorPuntuada.habitacion.precio }}</p>
+    </div>
+    <div>
+      <p><strong>Hotel:</strong> {{ habitacionMejorPuntuada.habitacion.hotel.nombre }}</p>
+      <p><strong>Dirección:</strong> {{ habitacionMejorPuntuada.habitacion.hotel.direccion }}</p>
+      <p><strong>Valoración Promedio:</strong> {{ habitacionMejorPuntuada.habitacion.promedio_valoracion }}/5</p>
+    </div>
+    <div>
+                         <p-button
+                                        icon="pi pi-file-pdf"
+                                        class="flex-auto md:flex-initial whitespace-nowrap"
+                                        label="Descargue los Saldos"
+                                        (click)="generarReporteHotelesPDF()"
+                                         [outlined]="true"
+                                    />
+    </div>
+  </div>
+</div>
+
+<div class="card p-4 shadow-md rounded-lg">
+  <h3 class="text-lg font-semibold mb-3">Reservaciones de esta habitación</h3>
+     <p-table 
+      [scrollable]="true" scrollHeight="400px"
+     [value]="habitacionMejorPuntuada.reservaciones" [tableStyle]="{'min-width': '30rem'}" stripedRows>
+    <ng-template #header>
+      <tr>
+        <th>No.</th>
+        <th>Habitación</th>
+        <th>Fecha Entrada</th>
+        <th>Fecha Salida</th>
+        <th>Tipo</th>
+      </tr>
+    </ng-template>
+
+    <ng-template #body let-reservacion let-i="rowIndex">
+      <tr>
+        <td>{{ i + 1 }}</td>
+        <td>{{ reservacion.habitacion.numero_habitacion }}</td>
+        <td>{{ reservacion.fechaEntrada | date:'dd/MM/yyyy' }}</td>
+        <td>{{ reservacion.fechaSalida | date:'dd/MM/yyyy' }}</td>
+        <td>{{ reservacion.tipoReservacion }}</td>
+      </tr>
+    </ng-template>
+  </p-table>
+    </div>
+
+    <!-- Card 2 -->
+ <div class="card p-4 shadow-md rounded-lg mb-6">
+  <h3 class="text-lg font-semibold mb-3">Habitación con mas alojamientos</h3>
+
+  <div class="grid grid-cols-2 gap-4">
+    <div>
+      <p><strong>Número de Habitación:</strong> {{ habitacionMasAlojamiento.habitacion.numero_habitacion }}</p>
+      <p><strong>Tipo:</strong> {{ habitacionMasAlojamiento.habitacion.tipoHabitacion }}</p>
+      <p><strong>Precio:</strong> Q{{ habitacionMasAlojamiento.habitacion.precio }}</p>
+    </div>
+    <div>
+      <p><strong>Hotel:</strong> {{ habitacionMasAlojamiento.habitacion.hotel.nombre }}</p>
+      <p><strong>Dirección:</strong> {{ habitacionMasAlojamiento.habitacion.hotel.direccion }}</p>
+      <p><strong>Valoración Promedio:</strong> {{ habitacionMasAlojamiento.habitacion.promedio_valoracion }}/5</p>
+    </div>
+    <div>
+                         <p-button
+                                        icon="pi pi-file-pdf"
+                                        class="flex-auto md:flex-initial whitespace-nowrap"
+                                        label="Descargue los Saldos"
+                                        (click)="generarReporteHotelesMasAlojamientosPDF()"
+                                         [outlined]="true"
+                                    />
+    </div>
+  </div>
+</div>
+
+<div class="card p-4 shadow-md rounded-lg">
+  <h3 class="text-lg font-semibold mb-3">Reservaciones de esta habitación</h3>
+     <p-table 
+      [scrollable]="true" scrollHeight="400px"
+     [value]="habitacionMasAlojamiento.reservaciones" [tableStyle]="{'min-width': '30rem'}" stripedRows>
+    <ng-template #header>
+      <tr>
+        <th>No.</th>
+        <th>Habitación</th>
+        <th>Fecha Entrada</th>
+        <th>Fecha Salida</th>
+        <th>Tipo</th>
+      </tr>
+    </ng-template>
+
+    <ng-template #body let-reservacion let-i="rowIndex">
+      <tr>
+        <td>{{ i + 1 }}</td>
+        <td>{{ reservacion.habitacion.numero_habitacion }}</td>
+        <td>{{ reservacion.fechaEntrada | date:'dd/MM/yyyy' }}</td>
+        <td>{{ reservacion.fechaSalida | date:'dd/MM/yyyy' }}</td>
+        <td>{{ reservacion.tipoReservacion }}</td>
+      </tr>
+    </ng-template>
+  </p-table>
+    </div>
+  </div>
+</p-panel>
     </div>
 </div>

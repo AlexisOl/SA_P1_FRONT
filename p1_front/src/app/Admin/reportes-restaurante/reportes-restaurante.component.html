@@ -1,0 +1,29 @@
+<app-header/>
+<div class="card mt-3">
+
+  <div class="grid grid-cols-1 gap-3 p-2">
+    <div class="flex">
+      <span class="font-semibold w-32">Saldos de la empresa:</span>
+    </div>
+  </div>
+  <p-table [value]="saldoEmpresa" [paginator]="true" [rows]="5" [rowsPerPageOptions]="[5, 10, 20]" stripedRows
+    [tableStyle]="{'min-width': '40rem'}">
+    <ng-template #header>
+      <tr>
+        <th>No.</th>
+        <th>Anio</th>
+        <th>No. Semana</th>
+        <th>Saldo</th>
+
+      </tr>
+    </ng-template>
+    <ng-template #body let-product let-rowIndex="rowIndex">
+      <tr>
+        <td>{{rowIndex+1}}</td>
+        <td>{{product.anio}}</td>
+        <td>{{product.semana}}</td>
+        <td>{{product.acumulado}}</td>
+      </tr>
+    </ng-template>
+  </p-table>
+</div>

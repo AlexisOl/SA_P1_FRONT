@@ -6,6 +6,8 @@ import { EmpleadosComponent } from './empleados/empleados.component';
 import { EmpleadosHotelComponent } from './empleados-hotel/empleados-hotel.component';
 import { EmpleadosRestauranteComponent } from './empleados-restaurante/empleados-restaurante.component';
 import { ReportesComponent } from './reportes/reportes.component';
+import { ReportesGeneralesComponent } from './reportes-generales/reportes-generales.component';
+import { ReportesRestauranteComponent } from './reportes-restaurante/reportes-restaurante.component';
 
 export const AdminRoutes: Routes = [
 
@@ -15,6 +17,8 @@ export const AdminRoutes: Routes = [
     {path: 'informacionEmpresarial', component: EmpleadosComponent},
     {path: 'hotel/:id', component: EmpleadosHotelComponent},
     {path: 'restaurante/:id', component: EmpleadosRestauranteComponent},
-    {path: 'reportes', component: ReportesComponent},
+    {path: 'reportes/hotel/:id', component: ReportesComponent},
+    {path: 'reportes/restaurante/:id', component: ReportesRestauranteComponent},
+    {path: 'reportesGenerales', component: ReportesGeneralesComponent},
 
 ];

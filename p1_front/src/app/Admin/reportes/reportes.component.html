@@ -1,1 +1,42 @@
-<p>reportes works!</p>
+<app-header/>
+<div class="card mt-3">
+
+  <div class="grid grid-cols-1 gap-3 p-2">
+    <div class="flex">
+      <span class="font-semibold w-32">Saldos de la empresa:</span>
+                 <p-button
+                                        icon="pi pi-file-pdf"
+                                        class="flex-auto md:flex-initial whitespace-nowrap"
+                                        label="Descargue los Saldos"
+                                        (click)="generarFacturaPDF()"
+                                         [outlined]="true"
+                                    />
+    </div>
+  </div>
+  <p-table #dt
+  (onFilter)="onFiltrar($event)"
+  [value]="saldoEmpresa" [paginator]="true" [rows]="5" [rowsPerPageOptions]="[5, 10, 20]" stripedRows
+    [tableStyle]="{'min-width': '40rem'}">
+    <ng-template #header>
+      <tr>
+        <th>No.</th>
+        <th>Inicio de semana
+             <p-columnFilter type="date" field="inicio_semana" display="menu"></p-columnFilter>
+        </th>
+        <th>Fin Semana
+             <p-columnFilter type="date" field="fin_semana" display="menu"></p-columnFilter>
+        </th>
+        <th>Saldo</th>
+
+      </tr>
+    </ng-template>
+    <ng-template #body let-product let-rowIndex="rowIndex">
+      <tr>
+        <td>{{rowIndex+1}}</td>
+        <td>{{product.inicio_semana | date: 'MM/dd/yyyy' }}</td>
+        <td>{{product.fin_semana | date: 'MM/dd/yyyy' }}</td>
+        <td>{{product.acumulado}}</td>
+      </tr>
+    </ng-template>
+  </p-table>
+</div>

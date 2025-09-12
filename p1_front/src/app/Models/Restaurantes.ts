@@ -16,6 +16,8 @@ export interface Platillo {
      precio:Number;
     tipo:TipoPlatillo;
     idrestaurante:String;
+    promedio_valoracion?: Number;
+
 }
 
 export interface calificacionPlatillo {

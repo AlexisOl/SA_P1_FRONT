@@ -17,9 +17,9 @@ export class CalificacionesRestauranteServicioService {
 
 
 
-  public listarCalificacionHabitacion( id: String):Observable<calificacionPlatillo[]> {
+  public listarCalificacionPLatillo( id: String):Observable<calificacionPlatillo[]> {
     return this.http.get<calificacionPlatillo[]>(
-      this.URL+"/restaurante/platillo/"+id)
+      this.URL+"/restaurante/"+id)
   }
 
 

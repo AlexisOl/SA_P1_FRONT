@@ -15,6 +15,7 @@ import { DialogModule } from 'primeng/dialog';
 import { FieldsetModule } from 'primeng/fieldset';
 import { IconFieldModule } from 'primeng/iconfield';
 import { InputIconModule } from 'primeng/inputicon';
+import { FacturacionHotelService } from '../../services/facturacion/facturacion-hotel.service';
 
 @Component({
   selector: 'app-empleados-hotel',
@@ -30,9 +31,11 @@ export class EmpleadosHotelComponent implements OnInit {
   idHotel!: String
   empleadoHotel = inject(EmpleadoHotelService)
   hotelServicio = inject(HotelServicioService)
+  facturacionHotelServicio = inject(FacturacionHotelService)
   visibleCrearEmpleado: boolean = false
   hotelEspecifico!: hotel
   listadoEmpleados: empleadoHotel[] = []
+  saldoEmpresa: any[]=[]
 
 
   AlertaServicio = inject(AlertaServicioService)
@@ -70,6 +73,15 @@ export class EmpleadosHotelComponent implements OnInit {
     this.hotelServicio.listarHotelEspecifico(this.idHotel).subscribe(
       (elementos) => {
         this.hotelEspecifico = elementos
+        console.log(elementos);
+
+      }
+    )
+
+
+    this.facturacionHotelServicio.obtenerSaldosHotel(Number(this.idHotel)).subscribe(
+      (elementos:any) => {
+        this.saldoEmpresa = elementos
         console.log(elementos);
 
       }
