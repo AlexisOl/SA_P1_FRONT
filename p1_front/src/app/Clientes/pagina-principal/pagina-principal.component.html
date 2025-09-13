@@ -28,9 +28,7 @@
           <p class="text-sm mb-1"><b>Camas:</b> {{ habitacion.cantidad_camas }}</p>
           <p class="text-sm mb-1"><b>Precio:</b> Q{{ habitacion.precio }}</p>
           <p class="text-sm mb-1"><b>Hotel:</b> {{ habitacion.hotel?.nombre }}</p>
-          <p class="text-sm mb-1" *ngIf="habitacion.promedio_valoracion !== null">
-            <b>Valoración:</b> {{ habitacion.promedio_valoracion  }}
-          </p>
+    
         </div>
       </ng-template>
     </p-carousel>
@@ -53,9 +51,7 @@
           <p class="text-sm mb-1"><b>Tipo:</b> {{ platillo.tipo }}</p>
           <p class="text-sm mb-1"><b>Precio:</b> Q{{ platillo.precio }}</p>
           <p class="text-sm mb-1"><b>Restaurante:</b> {{ platillo.idrestaurante?.nombre }}</p>
-          <p class="text-sm mb-1" *ngIf="platillo.promedio_valoracion !== null">
-            <b>Valoración:</b> {{ platillo.promedio_valoracion }}
-          </p>
+
         </div>
       </ng-template>
     </p-carousel>

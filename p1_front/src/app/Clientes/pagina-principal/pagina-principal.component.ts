@@ -19,8 +19,6 @@ import { PlatillosServicioService } from '../../services/restaurante/platillos-s
     PanelModule,
     TableModule,
     ButtonModule,
-    RouterLink,
-    DatePipe,
     CarouselModule
   ],
   templateUrl: './pagina-principal.component.html',
