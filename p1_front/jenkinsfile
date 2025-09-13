@@ -1,0 +1,20 @@
+pipeline {
+    agent any
+
+
+    stages {
+        stage('Checkout') {
+            steps {
+                checkout scm
+            }
+        }
+        
+        stage('Deploy') {
+            steps {
+                sh 'cd p1_front && sudo docker-compose down'
+                sh 'cd p1_front && sudo docker-compose up --build -d'
+                echo "Despliegue exitoso"
+            }
+        }
+    }
+}
