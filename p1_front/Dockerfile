@@ -20,4 +20,4 @@ COPY . .
 EXPOSE 4200
 
 # Comando por defecto
-CMD ["npm", "run"]
+CMD ["npm", "run", "dev"]
